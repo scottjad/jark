@@ -1,0 +1,18 @@
+* 0.1 RELEASE
+** long and short arg format
+** multimethods for pretty-printing
+** cp remove
+** ns list [PREFIX]
+** ns load FILE
+** ns reload NS
+** ns alias NS NICK
+** ng start --port --classpath 
+** swank start [dynamic port]
+** vm stat FIXES
+*** uptime in readable format 
+*** obtain swank port
+** validations
+** clin cp cljr [lib]
+
+* 0.2 RELEASE
+** Type inference

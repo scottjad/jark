@@ -1,0 +1,238 @@
+#!/bin/bash
+
+VERSION="0.1"
+
+MOD=$1
+CLJR_ROOT="$HOME/.cljr"
+CLJR_CP="$HOME/.cljr/lib"
+CLJR_BIN="$HOME/.cljr/bin"
+
+ARCH=`uname -m`
+NG="${CLJR_BIN}/ng"
+CLIN=`realpath $0`
+
+CLIN_JAR="${CLJR_CP}/clin.jar"
+CLOJURE_JARS="${CLJR_CP}/clojure-1.2.0.jar:${CLJR_CP}/clojure-contrib-1.2.0.jar"
+DEP_JARS="${CLJR_CP}/nailgun-0.7.1.jar:${CLJR_CP}/swank-clojure-1.2.0.jar:${CLJR_CP}/classpath-manager-1.1.0.jar"
+
+CLIN_CP="${CLOJURE_JARS}:${DEP_JARS}:${CLIN_JAR}:"
+
+mkdir -p ${CLJR_CP}
+mkdir -p ${CLJR_BIN}
+
+extract() {
+    export TMPDIR=`mktemp -d /tmp/clin.XXXXXX`
+    ARCHIVE=`awk '/^__ARCHIVE_BELOW__/ {print NR + 1; exit 0; }' $0`
+    tail -n+$ARCHIVE $0 | tar xz -C $TMPDIR
+    CDIR=`pwd`
+    cd $TMPDIR
+
+    cp -av lib/*.jar ${CLJR_CP}/
+    cp -av *.jar ${CLJR_CP}/
+    cp -av bin/ng-${ARCH} ${NG}
+    chmod +x ${NG}
+
+    cd $CDIR
+    rm -rf $TMPDIR
+    echo "Installed successfully."
+    exit 0
+}
+
+if [ ! -e ${CLIN_JAR} ] || [ ! -e $NG ]; then
+    extract
+fi
+
+if [ -z $1 ]; then
+    echo "USAGE: `basename $0` NAMESPACE|MODULE COMMAND [ARGS]"
+    echo "e.g. `basename $0` swank.util.sys get-pid"
+    echo 
+    echo "Available modules: "
+    echo "ng - Nailgun module to run the JVM as a daemon"
+    echo "     start      - starts the nailgun server"
+    echo "     stop       - stops the nailgun server"
+    echo
+    echo "cp - Classpath utilities"
+    echo "     list       - lists all the classpaths"
+    echo "     add  PATH  - adds given path to classpath"
+    echo "     cljr       - updates the classpath with jars in the cljr repository"
+    echo 
+    echo "cm - classpath manager"
+    echo "     MAIN-CLASS"
+    echo 
+    echo "ns - clojure namespace utilities"
+    echo "     list       - lists all available clojure namespaces"
+    echo "     load FILE  - loads the given clojure file"
+    echo
+    echo "vm - JVM stat utilities"
+    echo "     stat       - displays the jvm stats"
+    exit 1
+fi    
+
+get_pid() {
+    if [ -e /tmp/ng.pid ]; then
+        p=$(cat /tmp/ng.pid)
+        if [ $p ]; then
+            echo $p
+        else
+            echo 0
+        fi
+    else
+        echo 0
+    fi
+}
+
+ng_server_start() {
+    java -cp ${CLIN_CP}:${CLIN_JAR} -server com.martiansoftware.nailgun.NGServer <&- & 
+    pid=$!
+    echo ${pid} > /tmp/ng.pid
+}
+
+is_app_running() {
+    PID=`get_pid`
+    if [ $PID == 0 ]; then
+        echo "no"
+    else
+        search=$(ps --pid $PID -o comm | grep -v COMMAND)
+        if [ "$search" ]; then
+            echo "yes"
+        else
+            echo "no"
+        fi
+    fi
+}
+
+running=`is_app_running`
+
+if [ $MOD == "install" ]; then
+    extract
+fi
+
+if [ $MOD == "repl" ]; then
+    $CLIN cm clojure.main
+fi
+
+
+if [ $MOD == "ng" ]; then
+    if [ -z $2 ]; then
+        echo "ng - Nailgun module to run the JVM as a daemon"
+        echo "     start     - starts the nailgun server"
+        echo "     stop      - stops the nailgun server"
+        exit 1
+    else
+        CMD="$2"
+    fi
+fi
+
+if [ $MOD == "ng" ] && [ $CMD == "stop" ]; then 
+    if [ $running == "no" ]; then
+        echo "app server has already been stopped"
+        exit 0
+    fi
+    echo "Stopping app server with pid `cat /tmp/ng.pid`"
+    $NG ng-stop
+    exit 0
+fi
+
+if [ $MOD == "ng" ] && [ $CMD == "start" ]; then 
+    echo "Starting nailgun server on port 2113..."
+    ng_server_start 2&> /dev/null
+    sleep 2
+    $CLIN swank.swank start-repl
+    exit 0
+fi
+
+if [ $MOD == "ng" ] && [ $CMD == "alias" ]; then 
+    if [ -z $3 ] || [ -z $4 ]; then
+        echo "USAGE ng alias NICK MODULE/CLASS"
+        exit 1
+    fi
+    $NG ng-alias $3 $4
+    exit 0 
+fi
+
+if [ $MOD == "cp" ]; then
+    if [ -z $2 ]; then
+        echo "     list      - lists all the classpaths"
+        echo "     add  PATH - adds given path to classpath"
+        echo "     cljr      - updates the classpath with jars in the cljr repository"
+        exit 1
+    else
+        CMD="$2"
+    fi
+fi
+
+if [ $MOD == "cp" ] && [ $CMD == "remove" ]; then 
+    echo "command not implemented yet"
+    exit 1
+fi
+
+if [ $MOD == "cp" ] && [ $CMD == "add" ]; then 
+    if [ -z $3 ]; then
+        echo "USAGE clin cp add $jarpath"
+        exit 0
+    fi
+    jp=$(realpath $3)
+    if [ $? == "0" ]; then
+        $NG ng-cp $jp
+        $NG ng-cp
+        exit 0
+    else
+        exit 1
+    fi
+fi
+
+if [ $MOD == "cp" ] && [ $CMD == "list" ]; then 
+    $NG ng-cp
+    exit 0
+fi
+
+if [ $MOD == "cp" ] && [ $CMD == "cljr" ]; then 
+    for JAR in `find ${CLJR_CP} -name "*.jar" -print`
+    do
+        echo "Adding $JAR .."
+        $NG ng-cp $JAR
+    done
+    exit 0
+fi
+
+# classpath manager
+if [ $MOD == "cm" ]; then 
+    if [ -z $2 ]; then
+        echo "No main class specified"
+        echo "USAGE: clin cm your-main-class"
+        exit 1
+    fi
+    touch classpath
+    $NG ng-alias cm com.stuartsierra.ClasspathManager
+    $NG cm $2
+    exit 0
+fi
+
+if [ $MOD == "ns" ]; then 
+    if [ -z $2 ]; then
+        $CLIN clin.ns
+        exit 1
+    fi
+
+    if [ -z $3 ]; then
+        $CLIN clin.ns $2
+    else
+        $CLIN clin.ns $2 $3
+    fi
+    exit 0
+fi
+
+if [ $MOD == "vm" ]; then 
+    if [ -z $2 ]; then
+        $CLIN clin.vm
+        exit 1
+    fi
+    $CLIN clin.vm $2
+    exit 0
+fi
+
+$NG clin.core $@
+
+exit 0
+
+__ARCHIVE_BELOW__
