@@ -3,4 +3,6 @@ pom.xml
 lib
 classes
 classpath
-
+clin
+package/pkg/
+package/src/

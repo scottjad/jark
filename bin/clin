@@ -11,7 +11,7 @@ ARCH=`uname -m`
 NG="${CLJR_BIN}/ng"
 CLIN=`realpath $0`
 
-CLIN_JAR="${CLJR_CP}/clin.jar"
+CLIN_JAR="${CLJR_CP}/clin-${VERSION}.jar"
 CLOJURE_JARS="${CLJR_CP}/clojure-1.2.0.jar:${CLJR_CP}/clojure-contrib-1.2.0.jar"
 DEP_JARS="${CLJR_CP}/nailgun-0.7.1.jar:${CLJR_CP}/swank-clojure-1.2.0.jar:${CLJR_CP}/classpath-manager-1.1.0.jar"
 
