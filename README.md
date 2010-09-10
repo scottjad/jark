@@ -1,7 +1,5 @@
 
-
-CLIN is a system to run the JVM as a daemon, have multiple clients
-connect to it and run clojure programs
+A command-line framework for clojure programs on the JVM.
 
 ## CLIN provides ...
  
@@ -13,8 +11,13 @@ We refer to `CLIN` as the system and `clin` as the client.
 ## Quick start
 
 ### Install
+
+From script:
 1. [Download self-extracting script](http://github.com/downloads/icylisper/clin/clin)
 2. Place it on your path and chmod it to be executable.
+
+On Arch Linux from AUR repository:
+    packer -S clin
 
 ### Try it out
 1. clin clin.example factorial 5
