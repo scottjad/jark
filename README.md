@@ -12,7 +12,6 @@ We refer to `CLIN` as the system and `clin` as the client.
 
 ### Install
 
-From script:
 1. [Download self-extracting script](http://github.com/downloads/icylisper/clin/clin)
 2. Place it on your path and chmod it to be executable.
 
