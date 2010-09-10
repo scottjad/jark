@@ -6,3 +6,4 @@ classpath
 clin
 package/pkg/
 package/src/
+*.tar.xz

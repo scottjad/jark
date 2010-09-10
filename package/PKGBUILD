@@ -16,13 +16,13 @@ build() {
     cd ${srcdir}/
     msg "Connecting to the GIT server...."
 
-    if [[ -d ${srcdir}/${_gitname} ]] ; then
-        cd ${_gitname}
-        git pull origin
-        msg "The local files are updated..."
-    else
-        git clone ${_gitroot}
-    fi
+    # if [[ -d ${srcdir}/${_gitname} ]] ; then
+    #     cd ${_gitname}
+    #     git pull origin
+    #     msg "The local files are updated..."
+    # else
+    #     git clone ${_gitroot}
+    # fi
     cd ${srcdir}/${_gitname}/
     lein jar
     ./build
@@ -30,6 +30,8 @@ build() {
 
 package() {
     cd ${srcdir}/${_gitname}/
-    ./clin install
+    
+    mkdir -p $pkgdir/usr/bin/
+    cp -a clin $pkgdir/usr/bin/
 }
 
