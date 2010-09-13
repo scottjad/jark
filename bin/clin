@@ -9,7 +9,7 @@ CLJR_BIN="$HOME/.cljr/bin"
 
 ARCH=`uname -m`
 NG="${CLJR_BIN}/ng"
-CLIN=`realpath $0`
+CLIN=clin
 
 CLIN_JAR="${CLJR_CP}/clin-${VERSION}.jar"
 CLOJURE_JARS="${CLJR_CP}/clojure-1.2.0.jar:${CLJR_CP}/clojure-contrib-1.2.0.jar"
@@ -171,7 +171,7 @@ if [ $MOD == "cp" ] && [ $CMD == "add" ]; then
         echo "USAGE clin cp add $jarpath"
         exit 0
     fi
-    jp=$(realpath $3)
+    jp=$(readlink -f  $3)
     if [ $? == "0" ]; then
         $NG ng-cp $jp
         $NG ng-cp
