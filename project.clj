@@ -1,5 +1,5 @@
 (defproject jark "0.1"
-  :description "Tool to manage the jars on the JVM"
+  :description "JARK is a tool to manage jars and classpaths on a persistent JVM"
   :dependencies [[org.clojure/clojure "1.2.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
                  [com.stuartsierra/classpath-manager "1.1.0"]

@@ -1,5 +1,5 @@
 
-A command-line framework for clojure programs on the JVM.
+JARK is a tool to manage jars and classpaths on a persistent JVMw
 
 ## JARK provides ...
  
