@@ -3,7 +3,6 @@ pom.xml
 lib
 classes
 classpath
-jark
 package/pkg/
 package/src/
 *.tar.xz

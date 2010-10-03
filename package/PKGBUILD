@@ -1,6 +1,6 @@
 # Contributor: Isaac Praveen <icylisper@gmail.com>
 pkgname=jark
-pkgver=20100916
+pkgver=20101003
 pkgrel=1
 pkgdesc="A command line framework for clojure programs on the JVM"
 arch=any
