@@ -1,8 +1,8 @@
 # Contributor: Isaac Praveen <icylisper@gmail.com>
 pkgname=jark
 pkgver=20101003
-pkgrel=1
-pkgdesc="JARK is a tool to manage jars and classpaths on a persistent JVM"
+pkgrel=2
+pkgdesc="JARK is a tool to manage jars and classpaths for clojure programs on a persistent JVM"
 arch=any
 url="http://github.com/icylisper/jark"
 license=('APACHE LICENSE v2')

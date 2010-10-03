@@ -1,5 +1,5 @@
 
-JARK is a tool to manage jars and classpaths on a persistent JVMw
+JARK is a tool to manage jars and classpaths for clojure programs on a persistent JVMw
 
 ## JARK provides ...
  
