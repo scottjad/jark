@@ -1,17 +1,17 @@
 # Contributor: Isaac Praveen <icylisper@gmail.com>
-pkgname=clin
-pkgver=20100910
-pkgrel=2
+pkgname=jark
+pkgver=20100916
+pkgrel=1
 pkgdesc="A command line framework for clojure programs on the JVM"
 arch=any
-url="http://github.com/icylisper/clin"
+url="http://github.com/icylisper/jark"
 license=('APACHE LICENSE v2')
 depends=()
-makedepends=('git') 
+makedepends=('git' 'leiningen') 
 source=()
 
-_gitroot="git://github.com/icylisper/clin.git"
-_gitname="clin"
+_gitroot="git://github.com/icylisper/jark.git"
+_gitname="jark"
 
 build() {
     cd ${srcdir}/
@@ -33,6 +33,6 @@ package() {
     cd ${srcdir}/${_gitname}/
     
     mkdir -p $pkgdir/usr/bin/
-    cp -a clin $pkgdir/usr/bin/
+    cp -a jark $pkgdir/usr/bin/
 }
 

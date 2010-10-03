@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tar cvf payload.tar bin/ng-i686 bin/ng-x86_64 clin-0.1.jar
+tar cvf payload.tar bin/ng-i686 bin/ng-x86_64 jark-0.1.jar
 for i in `ls lib/*.jar`; do
     tar -vrf payload.tar $i
 done
@@ -9,7 +9,7 @@ if [ -e "payload.tar" ]; then
     gzip payload.tar
 
     if [ -e "payload.tar.gz" ]; then
-        cat bin/clin payload.tar.gz > clin
+        cat bin/jark.bin payload.tar.gz > jark
         rm payload.tar.gz
     else
         echo "payload.tar.gz does not exist"
@@ -20,6 +20,6 @@ else
     exit 1
 fi
 
-chmod +x clin
-echo "clin self extracting script created"
+chmod +x jark
+echo "jark self extracting script created"
 exit 0

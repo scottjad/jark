@@ -9,19 +9,19 @@ CLJR_BIN="$HOME/.cljr/bin"
 
 ARCH=`uname -m`
 NG="${CLJR_BIN}/ng"
-CLIN=clin
+JARK=jark
 
-CLIN_JAR="${CLJR_CP}/clin-${VERSION}.jar"
+JARK_JAR="${CLJR_CP}/jark-${VERSION}.jar"
 CLOJURE_JARS="${CLJR_CP}/clojure-1.2.0.jar:${CLJR_CP}/clojure-contrib-1.2.0.jar"
 DEP_JARS="${CLJR_CP}/nailgun-0.7.1.jar:${CLJR_CP}/swank-clojure-1.2.0.jar:${CLJR_CP}/classpath-manager-1.1.0.jar"
 
-CLIN_CP="${CLOJURE_JARS}:${DEP_JARS}:${CLIN_JAR}:"
+JARK_CP="${CLOJURE_JARS}:${DEP_JARS}:${JARK_JAR}:"
 
 mkdir -p ${CLJR_CP}
 mkdir -p ${CLJR_BIN}
 
 extract() {
-    export TMPDIR=`mktemp -d /tmp/clin.XXXXXX`
+    export TMPDIR=`mktemp -d /tmp/jark.XXXXXX`
     ARCHIVE=`awk '/^__ARCHIVE_BELOW__/ {print NR + 1; exit 0; }' $0`
     tail -n+$ARCHIVE $0 | tar xz -C $TMPDIR
     CDIR=`pwd`
@@ -38,7 +38,7 @@ extract() {
     exit 0
 }
 
-if [ ! -e ${CLIN_JAR} ] || [ ! -e $NG ]; then
+if [ ! -e ${JARK_JAR} ] || [ ! -e $NG ]; then
     extract
 fi
 
@@ -82,7 +82,7 @@ get_pid() {
 }
 
 ng_server_start() {
-    java -cp ${CLIN_CP}:${CLIN_JAR} -server com.martiansoftware.nailgun.NGServer <&- & 
+    java -cp ${JARK_CP}:${JARK_JAR} -server com.martiansoftware.nailgun.NGServer <&- & 
     pid=$!
     echo ${pid} > /tmp/ng.pid
 }
@@ -108,7 +108,7 @@ if [ $MOD == "install" ]; then
 fi
 
 if [ $MOD == "repl" ]; then
-    $CLIN cm clojure.main
+    $JARK cm clojure.main
 fi
 
 
@@ -137,7 +137,7 @@ if [ $MOD == "ng" ] && [ $CMD == "start" ]; then
     echo "Starting nailgun server on port 2113..."
     ng_server_start 2&> /dev/null
     sleep 2
-    $CLIN swank.swank start-repl
+    $JARK swank.swank start-repl
     exit 0
 fi
 
@@ -168,7 +168,7 @@ fi
 
 if [ $MOD == "cp" ] && [ $CMD == "add" ]; then 
     if [ -z $3 ]; then
-        echo "USAGE clin cp add $jarpath"
+        echo "USAGE jark cp add $jarpath"
         exit 0
     fi
     jp=$(readlink -f  $3)
@@ -199,7 +199,7 @@ fi
 if [ $MOD == "cm" ]; then 
     if [ -z $2 ]; then
         echo "No main class specified"
-        echo "USAGE: clin cm your-main-class"
+        echo "USAGE: jark cm your-main-class"
         exit 1
     fi
     touch classpath
@@ -210,28 +210,28 @@ fi
 
 if [ $MOD == "ns" ]; then 
     if [ -z $2 ]; then
-        $CLIN clin.ns
+        $JARK jark.ns
         exit 1
     fi
 
     if [ -z $3 ]; then
-        $CLIN clin.ns $2
+        $JARK jark.ns $2
     else
-        $CLIN clin.ns $2 $3
+        $JARK jark.ns $2 $3
     fi
     exit 0
 fi
 
 if [ $MOD == "vm" ]; then 
     if [ -z $2 ]; then
-        $CLIN clin.vm
+        $JARK jark.vm
         exit 1
     fi
-    $CLIN clin.vm $2
+    $JARK jark.vm $2
     exit 0
 fi
 
-$NG clin.core $@
+$NG jark.core $@
 
 exit 0
 
