@@ -9,7 +9,18 @@ CLJR_BIN="$HOME/.cljr/bin"
 
 ARCH=`uname -m`
 NG="${CLJR_BIN}/ng"
-JARK=jark
+
+readlink_e() {
+    self="$0"
+    while test -h "$self"; do
+	cd "$(dirname $self)"
+	self=`readlink "$self"`
+    done
+    cd "$(dirname $self)"
+    pwd
+}
+
+JARK=$(readlink_e)/jark || jark
 
 JARK_JAR="${CLJR_CP}/jark-${VERSION}.jar"
 CLOJURE_JARS="${CLJR_CP}/clojure-1.2.0.jar:${CLJR_CP}/clojure-contrib-1.2.0.jar"
