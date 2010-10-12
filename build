@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tar cvf payload.tar bin/ng-i686 bin/ng-x86_64 jark-0.1.jar
+tar cvf payload.tar bin/ng-i686 bin/ng-x86_64 jark-0.1.jar modules/
 for i in `ls lib/*.jar`; do
     tar -vrf payload.tar $i
 done

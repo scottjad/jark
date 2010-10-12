@@ -27,9 +27,21 @@ CLOJURE_JARS="${CLJR_CP}/clojure-1.2.0.jar:${CLJR_CP}/clojure-contrib-1.2.0.jar"
 DEP_JARS="${CLJR_CP}/nailgun-0.7.1.jar:${CLJR_CP}/swank-clojure-1.2.0.jar:${CLJR_CP}/classpath-manager-1.1.0.jar"
 
 JARK_CP="${CLOJURE_JARS}:${DEP_JARS}:${JARK_JAR}:"
+JARK_MODULES_DIR="${CLJR_CP}/jark"
+
+#exports
+export JARK
+export JARK_JAR
+export DEP_JARS
+export JARK_CP
+export NG
+export CLJR_ROOT
+export CLJR_CP
+export CLJR_BIN
 
 mkdir -p ${CLJR_CP}
 mkdir -p ${CLJR_BIN}
+mkdir -p ${JARK_MODULES_DIR}
 
 extract() {
     export TMPDIR=`mktemp -d /tmp/jark.XXXXXX`
@@ -41,7 +53,8 @@ extract() {
     cp -av lib/*.jar ${CLJR_CP}/
     cp -av *.jar ${CLJR_CP}/
     cp -av bin/ng-${ARCH} ${NG}
-    chmod +x ${NG}
+     chmod +x ${NG}
+    cp -av modules/* ${JARK_MODULES_DIR}/
 
     cd $CDIR
     rm -rf $TMPDIR
@@ -56,193 +69,49 @@ fi
 if [ -z $1 ]; then
     echo "USAGE: `basename $0` NAMESPACE|MODULE COMMAND [ARGS]"
     echo "e.g. `basename $0` swank.util.sys get-pid"
-    echo 
-    echo "Available modules: "
-    echo "ng - Nailgun module to run the JVM as a daemon"
-    echo "     start      - starts the nailgun server"
-    echo "     stop       - stops the nailgun server"
     echo
-    echo "cp - Classpath utilities"
-    echo "     list       - lists all the classpaths"
-    echo "     add  PATH  - adds given path to classpath"
-    echo "     cljr       - updates the classpath with jars in the cljr repository"
-    echo 
-    echo "cm - classpath manager"
-    echo "     MAIN-CLASS"
-    echo 
-    echo "ns - clojure namespace utilities"
-    echo "     list       - lists all available clojure namespaces"
-    echo "     load FILE  - loads the given clojure file"
-    echo
-    echo "vm - JVM stat utilities"
-    echo "     stat       - displays the jvm stats"
-    exit 1
+    echo "Available modules:"
+    for i in `ls ${JARK_MODULES_DIR}/*.*`; do 
+        MODULE=`basename $i | cut -d '.' -f 1` 
+        EXT=`basename $i | cut -d '.' -f 2` 
+        if [ "$EXT" == "sh" ]; then
+            source $i
+            echo -en "\e[00;31m$MODULE\e[00m  - \e[00;32m$DOC\e[00m\n"
+            help
+        fi
+
+        if [ "$EXT" == "clj" ]; then
+            $NG jark.core jark.core jark-load ${MODULE_CLJ} 2&> /dev/null
+            echo -en "\e[00;31m$MODULE\e[00m\n"
+            $NG jark.core jark.${MODULE} ${2}
+        fi
+
+    done
+    exit 0
 fi    
-
-get_pid() {
-    if [ -e /tmp/ng.pid ]; then
-        p=$(cat /tmp/ng.pid)
-        if [ $p ]; then
-            echo $p
-        else
-            echo 0
-        fi
-    else
-        echo 0
-    fi
-}
-
-ng_server_start() {
-    java -cp ${JARK_CP}:${JARK_JAR} -server com.martiansoftware.nailgun.NGServer <&- & 
-    pid=$!
-    echo ${pid} > /tmp/ng.pid
-}
-
-is_app_running() {
-    PID=`get_pid`
-    if [ $PID == 0 ]; then
-        echo "no"
-    else
-        search=$(ps --pid $PID -o comm | grep -v COMMAND)
-        if [ "$search" ]; then
-            echo "yes"
-        else
-            echo "no"
-        fi
-    fi
-}
-
-running=`is_app_running`
 
 if [ $MOD == "install" ]; then
     extract
 fi
 
-if [ $MOD == "repl" ]; then
-    $JARK cm clojure.main
-fi
+MODULE_SH=${JARK_MODULES_DIR}/$MOD.sh
+MODULE_CLJ=${JARK_MODULES_DIR}/$MOD.clj
 
-
-if [ $MOD == "ng" ]; then
-    if [ -z $2 ]; then
-        echo "ng - Nailgun module to run the JVM as a daemon"
-        echo "     start     - starts the nailgun server"
-        echo "     stop      - stops the nailgun server"
-        exit 1
-    else
-        CMD="$2"
-    fi
-fi
-
-if [ $MOD == "ng" ] && [ $CMD == "stop" ]; then 
-    if [ $running == "no" ]; then
-        echo "app server has already been stopped"
-        exit 0
-    fi
-    echo "Stopping app server with pid `cat /tmp/ng.pid`"
-    $NG ng-stop
-    exit 0
-fi
-
-if [ $MOD == "ng" ] && [ $CMD == "start" ]; then 
-    echo "Starting nailgun server on port 2113..."
-    ng_server_start 2&> /dev/null
-    sleep 2
-    $JARK swank.swank start-repl
-    exit 0
-fi
-
-if [ $MOD == "ng" ] && [ $CMD == "alias" ]; then 
-    if [ -z $3 ] || [ -z $4 ]; then
-        echo "USAGE ng alias NICK MODULE/CLASS"
-        exit 1
-    fi
-    $NG ng-alias $3 $4
-    exit 0 
-fi
-
-if [ $MOD == "cp" ]; then
-    if [ -z $2 ]; then
-        echo "     list      - lists all the classpaths"
-        echo "     add  PATH - adds given path to classpath"
-        echo "     cljr      - updates the classpath with jars in the cljr repository"
-        exit 1
-    else
-        CMD="$2"
-    fi
-fi
-
-if [ $MOD == "cp" ] && [ $CMD == "remove" ]; then 
-    echo "command not implemented yet"
-    exit 1
-fi
-
-if [ $MOD == "cp" ] && [ $CMD == "add" ]; then 
+if [ -e ${MODULE_SH} ]; then
+    source ${MODULE_SH}
     if [ -z $3 ]; then
-        echo "USAGE jark cp add $jarpath"
-        exit 0
-    fi
-    jp=$(readlink -f  $3)
-    if [ $? == "0" ]; then
-        $NG ng-cp $jp
-        $NG ng-cp
-        exit 0
+        ${2} 
     else
-        exit 1
-    fi
+        ${2} ${3}
+   fi
+elif [ -e ${MODULE_CLJ} ]; then
+    MODULE=`basename ${MODULE_CLJ} | cut -d '.' -f 1` 
+    $NG jark.core jark.core jark-load ${MODULE_CLJ} 2&> /dev/null
+    $NG jark.core jark.core jark-compile ${JARK_MODULES_DIR} jark.${MODULE} 2&> /dev/null
+    $NG jark.core jark.${MODULE} ${2}
+else
+    $NG jark.core $@
 fi
-
-if [ $MOD == "cp" ] && [ $CMD == "list" ]; then 
-    $NG ng-cp
-    exit 0
-fi
-
-if [ $MOD == "cp" ] && [ $CMD == "cljr" ]; then 
-    for JAR in `find ${CLJR_CP} -name "*.jar" -print`
-    do
-        echo "Adding $JAR .."
-        $NG ng-cp $JAR
-    done
-    exit 0
-fi
-
-# classpath manager
-if [ $MOD == "cm" ]; then 
-    if [ -z $2 ]; then
-        echo "No main class specified"
-        echo "USAGE: jark cm your-main-class"
-        exit 1
-    fi
-    touch classpath
-    $NG ng-alias cm com.stuartsierra.ClasspathManager
-    $NG cm $2
-    exit 0
-fi
-
-if [ $MOD == "ns" ]; then 
-    if [ -z $2 ]; then
-        $JARK jark.ns
-        exit 1
-    fi
-
-    if [ -z $3 ]; then
-        $JARK jark.ns $2
-    else
-        $JARK jark.ns $2 $3
-    fi
-    exit 0
-fi
-
-if [ $MOD == "vm" ]; then 
-    if [ -z $2 ]; then
-        $JARK jark.vm
-        exit 1
-    fi
-    $JARK jark.vm $2
-    exit 0
-fi
-
-$NG jark.core $@
 
 exit 0
 

@@ -4,6 +4,18 @@
   (:use clojure.contrib.pprint)
   (:import (java.io FileNotFoundException)))
 
+(defn jark-load
+  "Loads the given clj file, and adds relative classpath"
+  [file]
+  ;; FIXME: check for file or dir existence
+  ;; Do ns introspection and add classpath
+  (load-file file))
+
+(defn jark-compile
+  [compile-path namespace]
+  (binding [*compile-path* compile-path]
+    (compile (symbol namespace))))
+
 (defn pp-plist [p]
   (cl-format true "~{~10A - ~A~%~}" p))
 
