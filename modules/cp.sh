@@ -12,9 +12,7 @@ readlink_e() {
 }
 
 help() {
-    echo -e "list       - lists all the classpaths"
-    echo -e "add  PATH  - adds given path to classpath"
-    echo -e "cljr       - updates the classpath with jars in the cljr repository"
+    echo -e "list | add PATH | cljr"
 }
 
 remove() {

@@ -2,8 +2,7 @@
 DOC="Nailgun module to run the JVM as a daemon"
 
 help() {
-    echo -e "start      - starts the nailgun server"
-    echo -e "stop       - stops the nailgun server"
+    echo -e "start | stop"
 }
 
 get_pid() {

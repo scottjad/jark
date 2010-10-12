@@ -83,7 +83,7 @@ if [ -z $1 ]; then
         if [ "$EXT" == "clj" ]; then
             $NG jark.core jark.core jark-load ${MODULE_CLJ} 2&> /dev/null
             echo -en "\e[00;31m$MODULE\e[00m\n"
-            $NG jark.core jark.${MODULE} ${2}
+            $NG jark.core jark.${MODULE} | head -n1 | awk 'sub(".....$", "")'
         fi
 
     done

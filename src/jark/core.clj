@@ -57,6 +57,12 @@
        (println (doc-string module command))
        (println (usage module command)))))
 
+(defn about
+  ([module]
+     (require-module module)
+     (let [p (into [] (commands module))]
+       (cl-format true "~{~A | ~}" p))))
+
 (defn explicit-help [module command]
   (if (= command "help")
     (help module)
@@ -66,6 +72,7 @@
   ([module]
      (try
        (require-module module)
+       (println (about module))
        (help module)
        (catch FileNotFoundException e (println "No such module" e))))
   ([module command & args]
