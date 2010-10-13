@@ -12,7 +12,7 @@ readlink_e() {
 }
 
 help() {
-    echo -e "update | remove"
+    echo -e "update | remove | add PACKAGE"
 }
 
 update() {
@@ -23,3 +23,12 @@ update() {
     done
     exit 0
 }
+
+remove() {
+    echo "Remove all cljr classpaths ..."
+}
+
+add() {
+    echo "Add a given lib's jar to the JVM instance ..."
+}
+
