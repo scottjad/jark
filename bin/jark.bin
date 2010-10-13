@@ -29,6 +29,36 @@ DEP_JARS="${CLJR_CP}/nailgun-0.7.1.jar:${CLJR_CP}/swank-clojure-1.2.0.jar:${CLJR
 JARK_CP="${CLOJURE_JARS}:${DEP_JARS}:${JARK_JAR}:"
 JARK_MODULES_DIR="${CLJR_CP}/jark"
 
+
+get_pid() {
+    if [ -e /tmp/ng.pid ]; then
+        p=$(cat /tmp/ng.pid)
+        if [ $p ]; then
+            echo $p
+        else
+            echo 0
+        fi
+    else
+        echo 0
+    fi
+}
+
+is_jark_running() {
+    PID=`get_pid`
+    if [ $PID == 0 ]; then
+        echo "no"
+    else
+        search=$(ps --pid $PID -o comm | grep -v COMMAND)
+        if [ "$search" ]; then
+            echo "yes"
+        else
+            echo "no"
+        fi
+    fi
+}
+
+running=`is_jark_running`
+
 #exports
 export JARK
 export JARK_JAR
@@ -38,10 +68,12 @@ export NG
 export CLJR_ROOT
 export CLJR_CP
 export CLJR_BIN
+export running
 
 mkdir -p ${CLJR_CP}
 mkdir -p ${CLJR_BIN}
 mkdir -p ${JARK_MODULES_DIR}
+
 
 extract() {
     export TMPDIR=`mktemp -d /tmp/jark.XXXXXX`
@@ -69,28 +101,28 @@ fi
 if [ -z $1 ]; then
     echo "USAGE: `basename $0` NAMESPACE|MODULE COMMAND [ARGS]"
     echo "e.g. `basename $0` swank.util.sys get-pid"
-    echo
-    echo "Available modules:"
+    echo -en "\e[00;34mAvailable modules:\e[00m\n"
     for i in `ls ${JARK_MODULES_DIR}/*.*`; do 
         MODULE=`basename $i | cut -d '.' -f 1` 
         EXT=`basename $i | cut -d '.' -f 2` 
         if [ "$EXT" == "sh" ]; then
             source $i
-            echo -en "\e[00;31m$MODULE\e[00m  - \e[00;32m$DOC\e[00m\n"
-            help
+            echo -en "\e[00;31m$MODULE\e[00m\t\e[00;32m$DOC\e[00m  $(help)\n"
+            
         fi
 
         if [ "$EXT" == "clj" ]; then
-            $NG jark.core jark.core jark-load ${MODULE_CLJ} 2&> /dev/null
-            echo -en "\e[00;31m$MODULE\e[00m\n"
-            $NG jark.core jark.${MODULE} | head -n1 | awk 'sub(".....$", "")'
+            if [ $running == "yes" ]; then
+                $NG jark.core jark.core jark-load ${MODULE_CLJ} 2&> /dev/null
+                echo -en "\e[00;31m$MODULE\e[00m\t`$NG jark.core jark.${MODULE} | head -n1 | awk 'sub(".....$", "")'`\n"
+            fi
         fi
 
     done
     exit 0
 fi    
 
-if [ $MOD == "install" ]; then
+if [ $MOD == "self" ] && [ $2 == "install" ]; then
     extract
 fi
 

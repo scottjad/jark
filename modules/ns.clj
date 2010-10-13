@@ -5,6 +5,8 @@
   (:refer-clojure :exclude [list load])
   (:use jark.core))
 
+(defn- ns-doc [] "Namespace utilities")
+
 (defn- namespaces []
   (find-namespaces-on-classpath))
 

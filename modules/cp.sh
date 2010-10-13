@@ -12,7 +12,7 @@ readlink_e() {
 }
 
 help() {
-    echo -e "list | add PATH | cljr"
+    echo -e "list | add PATH"
 }
 
 remove() {
@@ -38,14 +38,5 @@ add() {
 
 list() {
     $NG ng-cp
-    exit 0
-}
-
-cljr() {
-    for JAR in `find ${CLJR_CP} -name "*.jar" -print`
-    do
-        echo "Adding $JAR .."
-        $NG ng-cp $JAR
-    done
-    exit 0
+     exit 0
 }

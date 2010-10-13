@@ -5,6 +5,8 @@
   (:import (java.lang.management RuntimeMXBean ManagementFactory))
   (:import (java.util Date)))
 
+(defn- ns-doc [] "JVM statistics")
+
 (defn stat
   "Display statistics of the JVM"
   []
