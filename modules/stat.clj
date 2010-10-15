@@ -1,4 +1,4 @@
-(ns jark.vm
+(ns jark.stat
   (:gen-class)
   (:use clojure.contrib.pprint)
   (:use jark.core)
@@ -7,8 +7,8 @@
 
 (defn- ns-doc [] "JVM statistics")
 
-(defn stat
-  "Display statistics of the JVM"
+(defn time-stats
+  "Display current statistics of the JVM"
   []
   (let [mx    (ManagementFactory/getRuntimeMXBean)
         props {"port" 2113
@@ -18,4 +18,3 @@
                "uptime" (str (.toString (.getUptime mx)) "ms")}
         p     (mapcat #(vector (key %) (val %)) props)]
     (pp-plist p)))
-

@@ -128,22 +128,14 @@ MODULE_CLJ=${JARK_MODULES_DIR}/$MOD.clj
 
 if [ -e ${MODULE_SH} ]; then
     source ${MODULE_SH}
-    if [ -z $3 ]; then
-        ${2} 
-    else
-        ${2} ${3}
-   fi
+    ${2} "${@:3}"
 elif [ -e ${MODULE_CLJ} ]; then
     MODULE=`basename ${MODULE_CLJ} | cut -d '.' -f 1` 
     $NG jark.core jark.core jark-load ${MODULE_CLJ} 2&> /dev/null
     $NG jark.core jark.core jark-compile ${JARK_MODULES_DIR} jark.${MODULE} 2&> /dev/null
-    if [ -z $3 ]; then 
-        $NG jark.core jark.${MODULE} ${2}
-    else
-        $NG jark.core jark.${MODULE} ${2} $3
-    fi
+    $NG jark.core jark.${MODULE} "${@:2}"
 else
-    $NG jark.core $@
+    $NG jark.core "${@:1}"
 fi
 
 exit 0

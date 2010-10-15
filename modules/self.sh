@@ -8,3 +8,7 @@ help() {
 version() {
     echo "jark version: $VERSION"
 }
+
+uninstall() {
+    echo "uninstalling ..."
+}

@@ -12,7 +12,7 @@ readlink_e() {
 }
 
 help() {
-    echo -e "list | add PATH"
+    echo -e "list | add PATH | run MAIN"
 }
 
 remove() {
@@ -39,4 +39,12 @@ add() {
 list() {
     $NG ng-cp
      exit 0
+}
+
+run() {
+    local mainclass="$1"
+    touch classpath
+    $NG ng-alias cm com.stuartsierra.ClasspathManager
+    $NG cm $mainclass
+    exit 0
 }

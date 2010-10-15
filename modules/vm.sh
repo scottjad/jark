@@ -1,8 +1,18 @@
 
-DOC="Nailgun server utilities"
+DOC="Module to manage the JVM server"
 
 help() {
     echo -e "start | stop"
+}
+
+
+alias() {
+    if [ -z $3 ] || [ -z $4 ]; then
+        echo "USAGE ng alias NICK MODULE/CLASS"
+        exit 1
+    fi
+    $NG ng-alias $3 $4
+    exit 0 
 }
 
 ng_server_start() {
@@ -25,13 +35,4 @@ stop() {
     echo "Stopping JVM server with pid `cat /tmp/ng.pid`"
     $NG ng-stop
     exit 0
-}
-
-alias() {
-    if [ -z $3 ] || [ -z $4 ]; then
-        echo "USAGE ng alias NICK MODULE/CLASS"
-        exit 1
-    fi
-    $NG ng-alias $3 $4
-    exit 0 
 }
