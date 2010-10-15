@@ -22,6 +22,14 @@ remove() {
 
 add() {
     local jar="$1"
+    if [ -d $jar ]; then
+        for i in `find ${jar} -name "*.jar" -print`
+        do
+            echo "Adding $i .."
+            $NG ng-cp $i
+        done
+        exit 0
+    fi
     if [ -z $jar ]; then
         echo "USAGE jark cp add $jarpath"
         exit 0
