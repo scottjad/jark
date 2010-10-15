@@ -4,6 +4,7 @@
   (:use clojure.contrib.find-namespaces)
   (:refer-clojure :exclude [list load find])
   (:import (java.io FileNotFoundException))
+  (:import (com.stuartsierra ClasspathManager))
   (:use jark.core))
 
 (defn- ns-doc [] "Namespace utilities")
@@ -38,6 +39,12 @@
   ;; FIXME: check for file or dir existence
   ;; Do ns introspection and add classpath
   (load-file file))
+
+(defn run
+  "runs the given main function"
+  [main-ns & args]
+  (require-module main-ns)
+  (apply (resolve (symbol (str main-ns "/-main"))) args))
 
 (defn cli
   "Run the cli interface for any namespace"

@@ -2,7 +2,7 @@
 
 lein jar
 
-tar cvf payload.tar bin/ng-i686 bin/ng-x86_64 jark-1.0.jar modules/
+tar cvf payload.tar bin/ng-i686 bin/ng-x86_64 *.jar modules/
 for i in `ls lib/*.jar`; do
     tar -vrf payload.tar $i
 done

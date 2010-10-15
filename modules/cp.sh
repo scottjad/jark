@@ -28,6 +28,7 @@ add() {
             echo "Adding $i .."
             $NG ng-cp $i
         done
+        $NG ng-cp ${jar}
         exit 0
     fi
     if [ -z $jar ]; then
