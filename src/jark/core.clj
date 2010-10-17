@@ -2,6 +2,7 @@
   (:gen-class)
   (:use clojure.contrib.ns-utils)
   (:use clojure.contrib.pprint)
+  (:import (java.io File FileReader PushbackReader FileWriter BufferedReader InputStreamReader))
   (:import (java.io FileNotFoundException)))
 
 (defn jark-load
@@ -60,19 +61,26 @@
 (defn about
   ([module]
      (require-module module)
-     (let [p (into [] (commands module))]
-       (cl-format true "~{~A | ~}" p))))
+     (println (let [p (into [] (commands module))]
+                (cl-format true "~{~A | ~}" p)))))
 
 (defn explicit-help [module command]
   (if (= command "help")
     (help module)
     (help module command)))
 
+(defn cmd [p] (.. Runtime getRuntime (exec (str p))))
+
+(defn cmdout [o]
+  (let [r (BufferedReader.
+           (InputStreamReader.
+            (.getInputStream o)))]
+    (dorun (map println (line-seq r)))))
+
 (defn -main
   ([module]
      (try
        (require-module module)
-       (println (about module))
        (help module)
        (catch FileNotFoundException e (println "No such module" e))))
   ([module command & args]
@@ -86,4 +94,3 @@
            
            (catch IllegalArgumentException e (help module command))
            (catch NullPointerException e (println "No such command")))))))
-

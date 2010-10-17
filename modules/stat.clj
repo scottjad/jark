@@ -7,13 +7,21 @@
 
 (defn- ns-doc [] "JVM statistics")
 
-(defn time-stats
+(defn resource
   "Display current statistics of the JVM"
   []
   (let [mx    (ManagementFactory/getRuntimeMXBean)
-        props {"port" 2113
+        props {"args" (.toString (.getInputArguments mx)) 
+               "start time" (.toString (Date. (.getStartTime mx)))}
+        p     (mapcat #(vector (key %) (val %)) props)]
+    (pp-plist p)))
+
+(defn services
+  "Display current statistics of the JVM"
+  []
+  (let [mx    (ManagementFactory/getRuntimeMXBean)
+        props {"nailgun port" 2113
                "swank port" 4005
-               "args" (.toString (.getInputArguments mx)) 
                "start time" (.toString (Date. (.getStartTime mx)))
                "uptime" (str (.toString (.getUptime mx)) "ms")}
         p     (mapcat #(vector (key %) (val %)) props)]

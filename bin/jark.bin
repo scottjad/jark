@@ -96,27 +96,28 @@ extract() {
 }
 
 if [ -z $1 ]; then
-    echo "USAGE: `basename $0` NAMESPACE|MODULE COMMAND [ARGS]"
-    echo "e.g. `basename $0` swank.util.sys get-pid"
+    echo "USAGE: `basename $0` MODULE COMMAND [ARGS]"
     echo -en "\e[00;34mAvailable modules:\e[00m\n"
     for i in `ls ${JARK_MODULES_DIR}/*.*`; do 
         MODULE=`basename $i | cut -d '.' -f 1` 
         EXT=`basename $i | cut -d '.' -f 2` 
         if [ "$EXT" == "sh" ]; then
             source $i
-            echo -en "\e[00;31m$MODULE\e[00m\t\e[00;32m$DOC\e[00m  $(help)\n"
+            echo -en "\e[00;31m$MODULE\e[00m\t$(help)\n"
             
         fi
 
         if [ "$EXT" == "clj" ]; then
             if [ $running == "yes" ]; then
                 $NG jark.core jark.core jark-load ${MODULE_CLJ} 2&> /dev/null
-                echo -en "\e[00;31m$MODULE\e[00m\t`$NG jark.core jark.${MODULE} | head -n1 | awk 'sub(".....$", "")'`\n"
+                $NG jark.core jark.core jark-compile ${JARK_MODULES_DIR} jark.${MODULE} 2&> /dev/null
+                echo -en "\e[00;31m$MODULE\e[00m\t`$NG jark.core jark.core about jark.${MODULE} | head -n1 | awk 'sub(".....$", "")'`\n"
             fi
         fi
 
     done
     exit 0
+
 fi    
 
 if [ $MOD == "self" ] && [ $2 == "install" ]; then

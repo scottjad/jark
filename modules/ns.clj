@@ -2,8 +2,8 @@
   (:use clojure.contrib.pprint)
   (:use clojure.contrib.ns-utils)
   (:use clojure.contrib.find-namespaces)
-  (:refer-clojure :exclude [list load find])
-  (:import (java.io FileNotFoundException))
+  (:refer-clojure :exclude [list load find alias])
+  (:import (java.io File FileNotFoundException))
   (:import (com.stuartsierra ClasspathManager))
   (:use jark.core))
 
@@ -36,9 +36,9 @@
 (defn load
   "Loads the given clj file, and adds relative classpath"
   [file]
-  ;; FIXME: check for file or dir existence
-  ;; Do ns introspection and add classpath
-  (load-file file))
+  (let [basename (.getParentFile (File. file))]
+    (cmdout (cmd (str "/home/icylisper/.cljr/bin/ng ng-cp " (.toString basename))))
+    (load-file file)))
 
 (defn run
   "runs the given main function"
@@ -46,12 +46,21 @@
   (require-module main-ns)
   (apply (resolve (symbol (str main-ns "/-main"))) args))
 
+(defn alias
+  "Give a nick to the given namespace"
+  [namespace nick]
+  "Setting nick ...")
+
+(defn http
+  "Serve the given ns over HTTP. http://host:8000/ns?arg=value&"
+  [namespace]
+  "Enabling namespace over HTTP. . http://host:8000/ns?arg=value&")
+
 (defn cli
   "Run the cli interface for any namespace"
   ([module]
      (try
        (require-module module)
-       (println (about module))
        (help module)
        (catch FileNotFoundException e (println "No such module" e))))
   ([module command & args]

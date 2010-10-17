@@ -2,9 +2,7 @@
 ** long and short arg format
 ** multimethods for pretty-printing
 ** cp remove
-** ns list [PREFIX]
-** ns load FILE
-** ns reload NS
+** ns load FILE (add base dir to cp)
 ** ns alias NS NICK
 ** ng start --port --classpath 
 ** swank start [dynamic port]

@@ -2,7 +2,7 @@
 DOC="Module to manage jark itself"
 
 help() {
-    echo -e "install | uninstall | version"
+    echo -e "install | uninstall | version | about"
 }
 
 version() {
@@ -11,4 +11,8 @@ version() {
 
 uninstall() {
     echo "uninstalling ..."
+    $JARK vm stop
+    rm -rf ${CLJ_CP}/jark*.jar
+    rm -rf ${CLJ_CP}/jark.jar
+    rm -rf ${CLJ_CP}/jark
 }
