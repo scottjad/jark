@@ -1,13 +1,12 @@
 (ns jark._stat
-  (:gen-class)
-  (:use clojure.contrib.pprint)
-  (:use jark.core)
-  (:import (java.lang.management RuntimeMXBean ManagementFactory))
-  (:import (jark.util SystemThreadList))
-  (:import (java.util Date)))
+   (:gen-class)
+   (:use clojure.contrib.pprint)
+   (:use jark.core)
+   (:import (java.lang.management RuntimeMXBean ManagementFactory))
+   (:import (jark.util SystemThreadList))
+   (:import (java.util Date)))
 
 (defn- ns-doc [] "JVM statistics")
-
 
 (defn stats
   "Display current statistics of the JVM"
