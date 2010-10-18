@@ -71,6 +71,5 @@
          (try
            (let [ret (apply (resolve (symbol (str module "/" command))) args)]
              (when ret (println ret)))
-           
            (catch IllegalArgumentException e (help module command))
            (catch NullPointerException e (println "No such command")))))))
