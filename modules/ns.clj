@@ -7,6 +7,7 @@
   (:import (com.stuartsierra ClasspathManager))
   (:use jark.core))
 
+
 (defn- ns-doc [] "Namespace utilities")
 
 (defn- namespaces []
@@ -48,9 +49,14 @@
   (apply (resolve (symbol (str main-ns "/-main"))) args))
 
 (defn alias
-  "Give a nick to the given namespace"
+  "Set an alias for the namespace"
   [namespace nick]
-  "Setting nick ...")
+  (clojure.core/alias (symbol nick) (symbol namespace)))
+
+(defn aliases
+  "Get aliases for given the namespace"
+  [namespace]
+  (ns-aliases (symbol namespace)))
 
 (defn repl
   "Launch a repl with given ns"

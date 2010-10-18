@@ -3,6 +3,7 @@
   (:use clojure.contrib.pprint)
   (:use jark.core)
   (:import (java.lang.management RuntimeMXBean ManagementFactory))
+  (:import (jark.util SystemThreadList))
   (:import (java.util Date)))
 
 (defn- ns-doc [] "JVM statistics")
@@ -26,3 +27,9 @@
                "uptime" (str (.toString (.getUptime mx)) "ms")}
         p     (mapcat #(vector (key %) (val %)) props)]
     (pp-plist p)))
+
+(defn threads
+  "Display all running threads"
+  []
+  (let [stl (SystemThreadList.)]
+    (map #(str (.toString %) "\n") (.getAllThreads stl))))
