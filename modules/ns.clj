@@ -53,11 +53,6 @@
   [namespace nick]
   (clojure.core/alias (symbol nick) (symbol namespace)))
 
-(defn aliases
-  "Get aliases for given the namespace"
-  [namespace]
-  (ns-aliases (symbol namespace)))
-
 (defn repl
   "Launch a repl with given ns"
   [namespace]

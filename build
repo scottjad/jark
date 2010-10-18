@@ -1,6 +1,6 @@
 #!/bin/bash
 
-javac src/jark/util/SystemThreadList.java  -d classes/
+javac src/jark/util/SystemThreadList.java  -d classes/ &> /dev/null
 lein jar
 
 tar cvf payload.tar bin/ng-i686 bin/ng-x86_64 *.jar modules/

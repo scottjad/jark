@@ -2,7 +2,7 @@
 DOC="Module to manage the JVM server"
 
 help() {
-    echo -e "start | stop"
+    echo -e "start | stop | threads | stat | uptime"
 }
 
 
@@ -38,4 +38,16 @@ stop() {
     echo "Stopping JVM server with pid `cat /tmp/ng.pid`"
     $NG ng-stop
     exit 0
+}
+
+threads() {
+    $JARK _stat threads
+}
+
+stat() {
+    $JARK _stat stats
+}
+
+uptime() {
+    $JARK _stat uptime
 }

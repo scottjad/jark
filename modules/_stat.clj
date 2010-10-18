@@ -1,4 +1,4 @@
-(ns jark.stat
+(ns jark._stat
   (:gen-class)
   (:use clojure.contrib.pprint)
   (:use jark.core)
@@ -8,16 +8,8 @@
 
 (defn- ns-doc [] "JVM statistics")
 
-(defn resource
-  "Display current statistics of the JVM"
-  []
-  (let [mx    (ManagementFactory/getRuntimeMXBean)
-        props {"args" (.toString (.getInputArguments mx)) 
-               "start time" (.toString (Date. (.getStartTime mx)))}
-        p     (mapcat #(vector (key %) (val %)) props)]
-    (pp-plist p)))
 
-(defn services
+(defn stats
   "Display current statistics of the JVM"
   []
   (let [mx    (ManagementFactory/getRuntimeMXBean)
@@ -28,8 +20,16 @@
         p     (mapcat #(vector (key %) (val %)) props)]
     (pp-plist p)))
 
+(defn uptime
+  "Display uptime of the JVM"
+  []
+  (let [mx    (ManagementFactory/getRuntimeMXBean)
+        uptime (str (.toString (.getUptime mx)) "ms")]
+    uptime))
+
 (defn threads
   "Display all running threads"
   []
   (let [stl (SystemThreadList.)]
-    (map #(str (.toString %) "\n") (.getAllThreads stl))))
+    (doseq [i (map #(.getName %) (.getAllThreads stl))]
+      (println i))))
