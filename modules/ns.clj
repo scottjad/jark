@@ -37,7 +37,8 @@
   "Loads the given clj file, and adds relative classpath"
   [file]
   (let [basename (.getParentFile (File. file))]
-    (cmdout (cmd (str "/home/icylisper/.cljr/bin/ng ng-cp " (.toString basename))))
+    (cmdout (cmd (str (. System getProperty "user.home")
+                      "/.cljr/bin/ng ng-cp " (.toString basename))))
     (load-file file)))
 
 (defn run
