@@ -10,22 +10,16 @@ We refer to `JARK` as the system and `jark` as the client.
 
 ## Quick start
 
-### Install
-
-1. [Download self-extracting script](http://github.com/downloads/icylisper/jark/jark)
-2. Place it on your path and chmod it to be executable.
-
-
-### Usage
-
-[To be updated]
-
-
 ## Building jark
     
     lein jar && ./build
     
 This will generate the self-extracting script `jark`
+
+### Usage
+
+[To be updated]
+
 
 ## LICENSE
 
