@@ -24,6 +24,9 @@ ng_server_start() {
 start() {
     ng_server_start 2&> /dev/null
     echo "Started JVM server on port 2113..."
+    sleep 2
+    echo "Loading modules ..."
+    $JARK &> /dev/null
     exit 0
 }
 

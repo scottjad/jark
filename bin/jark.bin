@@ -70,6 +70,7 @@ export CLJR_CP
 export CLJR_BIN
 export running
 export VERSION
+export JARK_MODULES_DIR
 
 mkdir -p ${CLJR_CP}
 mkdir -p ${CLJR_BIN}
@@ -95,6 +96,7 @@ extract() {
     exit 0
 }
 
+
 if [ -z $1 ]; then
     echo "USAGE: `basename $0` MODULE COMMAND [ARGS]"
     echo -en "\e[00;34mAvailable modules:\e[00m\n"
@@ -109,8 +111,7 @@ if [ -z $1 ]; then
 
         if [ "$EXT" == "clj" ]; then
             if [ $running == "yes" ]; then
-                $NG jark.core jark.core jark-load ${MODULE_CLJ} 2&> /dev/null
-                $NG jark.core jark.core jark-compile ${JARK_MODULES_DIR} jark.${MODULE} 2&> /dev/null
+                $NG jark.core jark.core jark-load $i 2&> /dev/null
                 echo -en "\e[00;31m$MODULE\e[00m\t`$NG jark.core jark.core about jark.${MODULE} | head -n1 | awk 'sub(".....$", "")'`\n"
             fi
         fi
