@@ -52,6 +52,12 @@
   [namespace nick]
   "Setting nick ...")
 
+(defn repl
+  "Launch a repl with given ns"
+  [namespace]
+  (let [fx (fn [] (in-ns (symbol namespace)))]
+    (clojure.main/repl :init fx)))
+
 (defn http
   "Serve the given ns over HTTP. http://host:8000/ns?arg=value&"
   [namespace]
