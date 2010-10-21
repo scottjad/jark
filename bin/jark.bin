@@ -87,9 +87,10 @@ extract() {
     cp -av lib/*.jar ${CLJR_CP}/
     cp -av *.jar ${CLJR_CP}/
     cp -av bin/ng-${ARCH} ${NG}
-     chmod +x ${NG}
+    chmod +x ${NG}
     cp -av modules/* ${JARK_MODULES_DIR}/
-
+    cp jark-deps.txt ${CLJR_CP}/
+    
     cd $CDIR
     rm -rf $TMPDIR
     echo "Installed successfully."

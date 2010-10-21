@@ -3,7 +3,13 @@
 javac src/jark/util/SystemThreadList.java  -d classes/ &> /dev/null
 lein jar
 
-tar cvf payload.tar bin/ng-i686 bin/ng-x86_64 *.jar modules/
+touch jark-deps.txt
+for i in `ls lib/*.jar`; do
+    echo $i >> jark-deps.txt
+done
+
+tar cvf payload.tar bin/ng-i686 bin/ng-x86_64 *.jar jark-deps.txt modules/
+
 for i in `ls lib/*.jar`; do
     tar -vrf payload.tar $i
 done

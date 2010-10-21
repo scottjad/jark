@@ -12,7 +12,7 @@ readlink_e() {
 }
 
 help() {
-    echo -e "list add run add-cljr-jars"
+    echo -e "list add run"
 }
 
 add-cljr-jars() {

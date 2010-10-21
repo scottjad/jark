@@ -27,10 +27,16 @@ start() {
     sleep 2
     echo "Loading modules ..."
     $JARK &> /dev/null
-    # take a .jarkrc
+    if [ -e $CLJR_CP/jark-deps.txt ]; then
+        echo "Adding dependencies to classpath ..."
+        for dep in `cat $CLJR_CP/jark-deps.txt`; do
+            jark cp add ${CLJR_ROOT}/$dep &> /dev/null
+        done;
+    fi
     if [ -e $HOME/.jarkrc ]; then
         source $HOME/.jarkrc
     fi
+
     exit 0
 }
 

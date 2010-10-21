@@ -3,7 +3,6 @@
   (:use clojure.contrib.json)
   (:use clojure.contrib.http.agent))
 
-
 (defn- pp-fn [js]
   js)
 
