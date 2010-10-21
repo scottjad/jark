@@ -12,7 +12,7 @@ readlink_e() {
 }
 
 help() {
-    echo -e "update remove add run"
+    echo -e "update run"
 }
 
 update() {
@@ -24,15 +24,11 @@ update() {
     exit 0
 }
 
-remove() {
-    echo "Remove all cljr classpaths ..."
-}
-
 add() {
     echo "Add a given lib's jar to the JVM instance ..."
 }
 
 run() {
-    $JARK cljr.App $*
+    $NG cljr.App $*
 }
 
