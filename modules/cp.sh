@@ -12,7 +12,16 @@ readlink_e() {
 }
 
 help() {
-    echo -e "list add run"
+    echo -e "list add run add-cljr-jars"
+}
+
+add-cljr-jars() {
+    for JAR in `find ${CLJR_CP} -name "*.jar" -print`
+    do
+        echo "Adding $JAR .."
+        $NG ng-cp $JAR
+    done
+    exit 0
 }
 
 remove() {

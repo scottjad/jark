@@ -10,7 +10,7 @@
   ([]
      (start-repl 4005)))
 
-(defn remote []
-  "start a remote swank")
+(defn stop []
+  "stop a remote swank")
 
 
