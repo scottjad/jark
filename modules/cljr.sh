@@ -12,7 +12,7 @@ readlink_e() {
 }
 
 help() {
-    echo -e "update | remove | add PACKAGE"
+    echo -e "update remove add run"
 }
 
 update() {
@@ -30,5 +30,9 @@ remove() {
 
 add() {
     echo "Add a given lib's jar to the JVM instance ..."
+}
+
+run() {
+    $JARK cljr.App $*
 }
 

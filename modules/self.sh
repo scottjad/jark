@@ -2,7 +2,7 @@
 DOC="Module to manage jark itself"
 
 help() {
-    echo -e "install | uninstall | version | about"
+    echo -e "install uninstall version about"
 }
 
 version() {

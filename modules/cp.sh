@@ -12,7 +12,7 @@ readlink_e() {
 }
 
 help() {
-    echo -e "list | add PATH | run MAIN"
+    echo -e "list add run"
 }
 
 remove() {

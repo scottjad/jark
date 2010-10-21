@@ -62,7 +62,7 @@
   ([module]
      (require-module module)
      (println (let [p (into [] (commands module))]
-                (cl-format true "~{~A | ~}" p)))))
+                (cl-format true "~{~A ~}" p)))))
 
 (defn explicit-help [module command]
   (if (= command "help")

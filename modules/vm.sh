@@ -2,7 +2,7 @@
 DOC="Module to manage the JVM server"
 
 help() {
-    echo -e "start | stop | threads | stat | uptime"
+    echo -e "start stop threads stat uptime"
 }
 
 
@@ -27,6 +27,10 @@ start() {
     sleep 2
     echo "Loading modules ..."
     $JARK &> /dev/null
+    # take a .jarkrc
+    if [ -e $HOME/.jarkrc ]; then
+        source $HOME/.jarkrc
+    fi
     exit 0
 }
 

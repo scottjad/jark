@@ -115,7 +115,7 @@ if [ -z $1 ]; then
             fi
             if [ $running == "yes" ]; then
                 $NG jark.core jark.core jark-load $i 2&> /dev/null
-                echo -en "\e[00;31m$MODULE\e[00m\t`$NG jark.core jark.core about jark.${MODULE} | head -n1 | awk 'sub(".....$", "")'`\n"
+                echo -en "\e[00;31m$MODULE\e[00m\t`$NG jark.core jark.core about jark.${MODULE} | head -n1 | awk 'sub("....$", "")'`\n"
             fi
         fi
 

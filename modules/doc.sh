@@ -2,6 +2,6 @@
 DOC="DOC finder for clojure"
 
 help() {
-    echo -e "find SYMBOL | show SYMBOL"
+    echo -e "find show"
 }
 
