@@ -1,7 +1,11 @@
 #!/bin/bash
 
+
 javac src/jark/util/SystemThreadList.java  -d classes/ &> /dev/null
-lein deps
+if [ $? != 0 ]; then 
+    echo "javac not installed, exiting"
+    exit 1
+fi
 lein jar
 
 touch jark-deps.txt

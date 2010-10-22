@@ -105,6 +105,10 @@ extract() {
 
 if [ -z $1 ]; then
     echo "USAGE: `basename $0` MODULE COMMAND [ARGS]"
+    if [ $running == "no" ]; then
+        echo "Vm is not running, run jark vm start"
+        exit 1
+    fi
     echo -en "\e[00;34mAvailable modules:\e[00m\n"
     for i in `ls ${JARK_MODULES_DIR}/*.*`; do 
         MODULE=`basename $i | cut -d '.' -f 1` 
