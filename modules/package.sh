@@ -2,7 +2,7 @@
 DOC="Module for working with cljr build system"
 
 help() {
-    echo -e "install uninstall versions describe search cp list"
+    echo -e "install uninstall versions describe deps search list latest"
 }
 
 install() {
@@ -26,15 +26,23 @@ search() {
     $JARK_CLIENT cljr.App search $*
 }
 
-cp() {
-    local $jar="$1"
-    $JARK cp add $jar
-}
-
 run() {
     $JARK_CLIENT cljr.App $*
 }
 
 list() {
     $JARK_CLIENT cljr.App list
+}
+
+deps() {
+    if [ -z $2 ]; then
+        ver=`$JARK cljr.clojars get-latest-version $1`
+        $JARK cljr.clojars print-library-dependencies $1 $ver
+    else
+        $JARK cljr.clojars print-library-dependencies $1 $2
+    fi
+}
+
+latest() {
+    $JARK cljr.clojars get-latest-version $*
 }

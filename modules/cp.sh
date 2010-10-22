@@ -15,15 +15,6 @@ help() {
     echo -e "list add run"
 }
 
-add-cljr-jars() {
-    for JAR in `find ${CLJR_CP} -name "*.jar" -print`
-    do
-        echo "Adding $JAR .."
-        $JARK_CLIENT ng-cp $JAR
-    done
-    exit 0
-}
-
 remove() {
      echo "command not implemented yet"
      exit 1
