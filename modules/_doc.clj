@@ -1,17 +1,16 @@
 (ns jark._doc
-  (:refer-clojure :exclude [bytes fn])
+  (:refer-clojure :exclude [bytes])
   (:use clojure.contrib.json)
   (:use clojure.contrib.http.agent))
 
-(defn- pp-fn [js]
-  js)
+(defn- pp-examples [js]
+  (let [ex (:examples js)]
+    (doseq [i ex]
+      (do (println (:body i))))))
 
-(defn fn [function]
-  (read-json (string (http-agent (str "http://api.clojuredocs.org/search/" function)))))
+(defn search [function]
+   (read-json (string (http-agent (str "http://api.clojuredocs.org/search/" function)))))
 
-(defn example [sym]
-  (read-json (string (http-agent (str "http://api.clojuredocs.org/examples/clojure.core/" sym)))))
-
-  
-
+(defn examples [sym]
+  (pp-examples (read-json (string (http-agent (str "http://api.clojuredocs.org/examples/clojure.core/" sym))))))
 

@@ -4,6 +4,7 @@ javac src/jark/util/SystemThreadList.java  -d classes/ &> /dev/null
 lein jar
 
 touch jark-deps.txt
+:> jark-deps.txt
 for i in `ls lib/*.jar`; do
     echo $i >> jark-deps.txt
 done

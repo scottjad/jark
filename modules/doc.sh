@@ -1,13 +1,17 @@
 DOC="clojoredocs module"
 
 help() {
-    echo -e "example fn"
+    echo -e "search examples"
 }
 
-example() {
-    $JARK _doc example $* | less
+examples() {
+    if [ ! -n "${PAGER+x}" ]; then 
+        PAGER=less
+    fi
+
+    $JARK _doc examples $* | $PAGER
 }
 
-fn() {
-    $JARK _doc fn $*
+search() {
+    $JARK _doc search $*
 }
