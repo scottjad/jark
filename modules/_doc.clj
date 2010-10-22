@@ -1,5 +1,5 @@
-(ns jark.doc
-  (:refer-clojure :exclude [bytes])
+(ns jark._doc
+  (:refer-clojure :exclude [bytes fn])
   (:use clojure.contrib.json)
   (:use clojure.contrib.http.agent))
 

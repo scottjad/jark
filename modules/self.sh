@@ -12,7 +12,7 @@ version() {
 uninstall() {
     echo "uninstalling ..."
     $JARK vm stop
-    rm -rf ${CLJ_CP}/jark*.jar
-    rm -rf ${CLJ_CP}/jark.jar
-    rm -rf ${CLJ_CP}/jark
+    rm -rf ${CLJR_CP}/jark*.jar
+    rm -rf ${CLJR_CP}/jark.jar
+    rm -rf ${CLJR_CP}/jark
 }
