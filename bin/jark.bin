@@ -8,7 +8,7 @@ CLJR_CP="$HOME/.cljr/lib"
 CLJR_BIN="$HOME/.cljr/bin"
 
 ARCH=`uname -m`
-NG="${CLJR_BIN}/ng"
+JARK_CLIENT="${CLJR_BIN}/ng"
 
 readlink_e() {
     self="$0"
@@ -69,7 +69,7 @@ export JARK
 export JARK_JAR
 export DEP_JARS
 export JARK_CP
-export NG
+export JARK_CLIENT
 export CLJR_ROOT
 export CLJR_CP
 export CLJR_BIN
@@ -91,8 +91,8 @@ extract() {
 
     cp -av lib/*.jar ${CLJR_CP}/
     cp -av *.jar ${CLJR_CP}/
-    cp -av bin/ng-${ARCH} ${NG}
-    chmod +x ${NG}
+    cp -av bin/ng-${ARCH} ${JARK_CLIENT}
+    chmod +x ${JARK_CLIENT}
     cp -av modules/* ${JARK_MODULES_DIR}/
     cp jark-deps.txt ${CLJR_CP}/
     
@@ -111,7 +111,7 @@ if [ -z $1 ]; then
         EXT=`basename $i | cut -d '.' -f 2` 
         if [ "$EXT" == "sh" ]; then
             source $i
-            echo -en "\e[00;31m$MODULE\e[00m\t$(help)\n"
+            echo -en "\e[00;31m$MODULE\e[00m\t\t$(help)\n"
             
         fi
 
@@ -120,8 +120,8 @@ if [ -z $1 ]; then
                 continue 
             fi
             if [ $running == "yes" ]; then
-                $NG jark.core jark.core jark-load $i 2&> /dev/null
-                echo -en "\e[00;31m$MODULE\e[00m\t`$NG jark.core jark.core about jark.${MODULE} | head -n1 | awk 'sub("....$", "")'`\n"
+                $JARK_CLIENT jark.core jark.core jark-load $i 2&> /dev/null
+                echo -en "\e[00;31m$MODULE\e[00m\t\t`$JARK_CLIENT jark.core jark.core about jark.${MODULE} | head -n1 | awk 'sub("....$", "")'`\n"
             fi
         fi
 
@@ -142,11 +142,11 @@ if [ -e ${MODULE_SH} ]; then
     ${2} "${@:3}"
 elif [ -e ${MODULE_CLJ} ]; then
     MODULE=`basename ${MODULE_CLJ} | cut -d '.' -f 1` 
-    $NG jark.core jark.core jark-load ${MODULE_CLJ} 2&> /dev/null
-    $NG jark.core jark.core jark-compile ${JARK_MODULES_DIR} jark.${MODULE} 2&> /dev/null
-    $NG jark.core jark.${MODULE} "${@:2}"
+    $JARK_CLIENT jark.core jark.core jark-load ${MODULE_CLJ} 2&> /dev/null
+    $JARK_CLIENT jark.core jark.core jark-compile ${JARK_MODULES_DIR} jark.${MODULE} 2&> /dev/null
+    $JARK_CLIENT jark.core jark.${MODULE} "${@:2}"
 else
-    $NG jark.core "${@:1}"
+    $JARK_CLIENT jark.core "${@:1}"
 fi
 
 exit 0

@@ -11,7 +11,7 @@ alias() {
         echo "USAGE ng alias NICK MODULE/CLASS"
         exit 1
     fi
-    $NG ng-alias $3 $4
+    $JARK_CLIENT ng-alias $3 $4
     exit 0 
 }
 
@@ -46,7 +46,7 @@ stop() {
         exit 0
     fi
     echo "Stopping JVM server with pid `cat /tmp/ng.pid`"
-    $NG ng-stop
+    $JARK_CLIENT ng-stop
     exit 0
 }
 

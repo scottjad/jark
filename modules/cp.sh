@@ -19,7 +19,7 @@ add-cljr-jars() {
     for JAR in `find ${CLJR_CP} -name "*.jar" -print`
     do
         echo "Adding $JAR .."
-        $NG ng-cp $JAR
+        $JARK_CLIENT ng-cp $JAR
     done
     exit 0
 }
@@ -35,9 +35,9 @@ add() {
         for i in `find ${jar} -name "*.jar" -print`
         do
             echo "Adding $i .."
-            $NG ng-cp $i
+            $JARK_CLIENT ng-cp $i
         done
-        $NG ng-cp ${jar}
+        $JARK_CLIENT ng-cp ${jar}
         exit 0
     fi
     if [ -z $jar ]; then
@@ -46,8 +46,8 @@ add() {
     fi
     jp=$(readlink -f $jar)
     if [ $? == "0" ]; then
-        $NG ng-cp $jar
-        $NG ng-cp
+        $JARK_CLIENT ng-cp $jar
+        $JARK_CLIENT ng-cp
         exit 0
     else
         exit 1
@@ -55,14 +55,14 @@ add() {
 }
 
 list() {
-    $NG ng-cp
+    $JARK_CLIENT ng-cp
      exit 0
 }
 
 run() {
     local mainclass="$1"
     touch classpath
-    $NG ng-alias cm com.stuartsierra.ClasspathManager
-    $NG cm $mainclass
+    $JARK_CLIENT ng-alias cm com.stuartsierra.ClasspathManager
+    $JARK_CLIENT cm $mainclass
     exit 0
 }

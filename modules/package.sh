@@ -1,41 +1,40 @@
 
 DOC="Module for working with cljr build system"
 
-readlink_e() {
-    self="$0"
-    while test -h "$self"; do
-	cd "$(dirname $self)"
-	self=`readlink "$self"`
-    done
-    cd "$(dirname $self)"
-    pwd
-}
-
 help() {
-    echo -e "install uninstall versions describe search"
+    echo -e "install uninstall versions describe search cp list"
 }
 
 install() {
-    $NG cljr.App install $*
+    $JARK_CLIENT cljr.App install $*
 }
 
 uninstall() {
-    $NG cljr.App uninstall $*
+    $JARK_CLIENT cljr.App uninstall $*
 }
 
 versions() {
-    $NG cljr.App versions $*
+    $JARK_CLIENT cljr.App versions $*
 }
 
 describe() {
-    $NG cljr.App search $*
+    $JARK_CLIENT cljr.App search $*
 }
 
 
 search() {
-    $NG cljr.App search $*
+    $JARK_CLIENT cljr.App search $*
+}
+
+cp() {
+    local $jar="$1"
+    $JARK cp add $jar
 }
 
 run() {
-    $NG cljr.App $*
+    $JARK_CLIENT cljr.App $*
+}
+
+list() {
+    $JARK_CLIENT cljr.App list
 }
