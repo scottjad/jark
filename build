@@ -1,6 +1,7 @@
 #!/bin/bash
 
 javac src/jark/util/SystemThreadList.java  -d classes/ &> /dev/null
+lein deps
 lein jar
 
 touch jark-deps.txt
