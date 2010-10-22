@@ -6,12 +6,16 @@ help() {
 
 examples() {
     if [ ! -n "${PAGER+x}" ]; then 
-        PAGER=less
+        $JARK _doc examples $* 
+    else
+        $JARK _doc examples $* | $PAGER
     fi
-
-    $JARK _doc examples $* | $PAGER
 }
 
 search() {
-    $JARK _doc search $*
+    if [ ! -n "${PAGER+x}" ]; then 
+        $JARK _doc search $* 
+    else
+        $JARK _doc search $* | $PAGER
+    fi
 }

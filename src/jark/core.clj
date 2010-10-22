@@ -18,7 +18,7 @@
     (compile (symbol namespace))))
 
 (defn pp-plist [p]
-  (cl-format true "~{~10A - ~A~%~}" p))
+  (cl-format true "~{~30A - ~A~%~}" p))
 
 (defn pp-map [m]
   (let [p (mapcat #(vector (key %) (val %)) m)]
