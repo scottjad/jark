@@ -1,7 +1,7 @@
 DOC="clojoredocs module"
 
 help() {
-    echo -e "search examples"
+    echo -e "search examples comments"
 }
 
 examples() {
@@ -17,5 +17,13 @@ search() {
         $JARK _doc search $* 
     else
         $JARK _doc search $* | $PAGER
+    fi
+}
+
+comments() {
+    if [ ! -n "${PAGER+x}" ]; then 
+        $JARK _doc comments $* 
+    else
+        $JARK _doc comments $* | $PAGER
     fi
 }

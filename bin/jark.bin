@@ -22,7 +22,12 @@ readlink_e() {
 
 JARK=$(readlink_e)/jark || jark
 
-JARK_JAR="${CLJR_CP}/jark-${VERSION}.jar"
+if [ -e "${CLJR_CP}/jark-${VERSION}.jar" ]; then
+    JARK_JAR="${CLJR_CP}/jark-${VERSION}.jar"
+else
+    JARK_JAR="${CLJR_CP}/jark.jar"
+fi
+
 CLOJURE_JARS="${CLJR_CP}/clojure-1.2.0.jar:${CLJR_CP}/clojure-contrib-1.2.0.jar"
 DEP_JARS="${CLJR_CP}/nailgun-0.7.1.jar:${CLJR_CP}/swank-clojure-1.2.0.jar:${CLJR_CP}/classpath-manager-1.1.0.jar"
 

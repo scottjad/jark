@@ -8,13 +8,14 @@
   (let [ex (:examples js)]
     (doseq [i ex]
       (println "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-      (println (:body i))
-      (println)
-      (println "  *** Last Updated:" (:updated_at ex)))))
+      (println (:body i)))))
 
 (defn- pp-search [res]
   (let [p (mapcat #(vector (:name %) (:ns %)) res)]
     (pp-plist p)))
+
+(defn- pp-comments [res]
+  res)
 
 (defn search [function]
   (pp-search (read-json
@@ -28,3 +29,12 @@
   ([sym namespace]
      (pp-examples (read-json
                 (string (http-agent (str "http://api.clojuredocs.org/examples/" namespace "/" sym)))))))
+
+(defn comments
+  ([sym]
+     (pp-comments (read-json
+                   (string (http-agent (str "http://api.clojuredocs.org/comments/clojure.core/" sym))))))
+
+  ([sym namespace]
+     (pp-comments (read-json
+                   (string (http-agent (str "http://api.clojuredocs.org/comments/" namespace "/" sym)))))))
