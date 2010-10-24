@@ -1,4 +1,4 @@
-package jark.util;
+package jark;
 
 import java.util.ArrayList;
 import java.util.List;

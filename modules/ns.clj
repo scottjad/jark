@@ -44,7 +44,7 @@
 (defn run
   "runs the given main function"
   [main-ns & args]
-  (require-module main-ns)
+  (require-ns main-ns)
   (apply (resolve (symbol (str main-ns "/-main"))) args))
 
 (defn repl

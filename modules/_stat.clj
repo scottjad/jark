@@ -3,7 +3,7 @@
    (:use clojure.contrib.pprint)
    (:use jark.core)
    (:import (java.lang.management RuntimeMXBean ManagementFactory))
-   (:import (jark.util SystemThreadList))
+   (:import (jark SystemThreadList))
    (:import (java.util Date)))
 
 (defn- ns-doc [] "JVM statistics")
