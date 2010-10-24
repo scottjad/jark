@@ -3,19 +3,10 @@ package jark.util;
 import java.util.ArrayList;
 import java.util.List;
 
-/* import org.apache.log4j.Logger; */
-
-public class SystemThreadList
+public class SystemThreadList 
 {
-    /**
-     * The list of threads.
-     */
     private ArrayList _threads;
 
-    /**
-     * Constructor.  Creates a list of all the 
-     * threads running in the JVM in the system.
-     */
     public SystemThreadList()
     {
 	_threads = new ArrayList();
@@ -35,11 +26,6 @@ public class SystemThreadList
 	}
     }
 
-    /**
-     * Returns the thread count.
-     *
-     * @return int
-     */
     public int getThreadCount()
     {
 	if(_threads == null)
@@ -48,12 +34,6 @@ public class SystemThreadList
 	    return _threads.size();
     }
 
-    /**
-     * Returns the thread group at the given index.
-     *
-     * @param index
-     * @return ThreadGroup
-     */
     public ThreadGroup getThreadGroup(int index)
     {
 	if(getThreadCount() < 1)
@@ -64,20 +44,11 @@ public class SystemThreadList
 	    return (ThreadGroup)_threads.get(index);
     }
 
-    /**
-     * Prints out the list of threads.
-     */
     public void printThreads()
     {
 	System.out.println(toString());
     }
 
-    /**
-     * Returns a String representation of this
-     * SystemThreadList.
-     *
-     * @return String
-     */
     public String toString()
     {
 	StringBuffer sb = new StringBuffer("[SystemThreadList:\n");
@@ -104,13 +75,6 @@ public class SystemThreadList
 	return sb.toString();
     }
 
-    /**
-     * Returns the total active count: goes over
-     * every group in the list, and sums their activeCount()
-     * results.
-     *
-     * @return int
-     */
     public int getTotalActiveCount()
     {
 	if(getThreadCount() < 1)
@@ -271,10 +235,6 @@ public class SystemThreadList
 	    t = allThreads[i];
 	    System.out.println("Thread " + i + " = " + t.toString());
 	}
-
-	// Try to destroy root group (Should throw a ThreadIllegalStateException)
-	//System.out.println("SystemThreadList: main(): trying to destroy root group. ;)");
-	//stl.destroyRootThreadGroup();
 
 	// Try to get threads with "Signal" in their name.
 	System.out.println("SystemThreadList: main(): getting threads with \"Signal\" in their name.");

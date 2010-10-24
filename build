@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-javac src/jark/util/SystemThreadList.java  -d classes/ &> /dev/null
+javac src/jark/util/SystemThreadList.java  -d classes/
 if [ $? != 0 ]; then 
     echo "javac not installed, exiting"
     exit 1

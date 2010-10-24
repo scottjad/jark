@@ -47,11 +47,6 @@
   (require-module main-ns)
   (apply (resolve (symbol (str main-ns "/-main"))) args))
 
-(defn alias
-  "Set an alias for the namespace"
-  [namespace nick]
-  (clojure.core/alias (symbol nick) (symbol namespace)))
-
 (defn repl
   "Launch a repl with given ns"
   [namespace]

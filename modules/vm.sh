@@ -5,16 +5,6 @@ help() {
     echo -e "start stop threads stat uptime"
 }
 
-
-alias() {
-    if [ -z $3 ] || [ -z $4 ]; then
-        echo "USAGE ng alias NICK MODULE/CLASS"
-        exit 1
-    fi
-    $JARK_CLIENT ng-alias $3 $4
-    exit 0 
-}
-
 ng_server_start() {
     java -cp ${JARK_CP}:${JARK_JAR} -server com.martiansoftware.nailgun.NGServer <&- & 
     pid=$!
@@ -23,20 +13,24 @@ ng_server_start() {
 
 start() {
     ng_server_start 2&> /dev/null
-    echo "Started JVM server on port 2113..."
     sleep 2
     echo "Loading modules ..."
     $JARK &> /dev/null
     if [ -e $CLJR_CP/jark-deps.txt ]; then
         echo "Adding dependencies to classpath ..."
         for dep in `cat $CLJR_CP/jark-deps.txt`; do
-            jark cp add ${CLJR_ROOT}/$dep &> /dev/null
+           $JARK cp add ${CLJR_ROOT}/$dep &> /dev/null
         done;
     fi
+    if [ -e `pwd`/project.clj ] && [ -d `pwd`/src ] && [ -d `pwd`/lib ]; then
+        $JARK cp add `pwd`/src
+        $JARK cp add `pwd`/lib
+    fi
+        
     if [ -e $HOME/.jarkrc ]; then
         source $HOME/.jarkrc
     fi
-
+    echo "Started JVM server on port 2113"
     exit 0
 }
 

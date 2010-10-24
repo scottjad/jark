@@ -22,6 +22,10 @@ remove() {
 
 add() {
     local jar="$1"
+    if [ -z $jar ]; then
+        echo "USAGE jark cp add <jarpath>"
+        exit 0
+    fi
     if [ -d $jar ]; then
         for i in `find ${jar} -name "*.jar" -print`
         do
@@ -31,13 +35,10 @@ add() {
         $JARK_CLIENT ng-cp ${jar}
         exit 0
     fi
-    if [ -z $jar ]; then
-        echo "USAGE jark cp add $jarpath"
-        exit 0
-    fi
+
     jp=$(readlink -f $jar)
     if [ $? == "0" ]; then
-        $JARK_CLIENT ng-cp $jar
+        $JARK_CLIENT ng-cp $jp
         $JARK_CLIENT ng-cp
         exit 0
     else

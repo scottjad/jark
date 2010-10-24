@@ -115,7 +115,7 @@ if [ -z $1 ]; then
         EXT=`basename $i | cut -d '.' -f 2` 
         if [ "$EXT" == "sh" ]; then
             source $i
-            echo -en "\e[00;31m$MODULE\e[00m\t\t$(help)\n"
+            echo -en "$MODULE\t- $(help)\n"
             
         fi
 
@@ -125,7 +125,7 @@ if [ -z $1 ]; then
             fi
             if [ $running == "yes" ]; then
                 $JARK_CLIENT jark.core jark.core jark-load $i 2&> /dev/null
-                echo -en "\e[00;31m$MODULE\e[00m\t\t`$JARK_CLIENT jark.core jark.core about jark.${MODULE} | head -n1 | awk 'sub("....$", "")'`\n"
+                echo -en "$MODULE\t- `$JARK_CLIENT jark.core jark.core about jark.${MODULE} | head -n1 | awk 'sub("....$", "")'`\n"
             fi
         fi
 

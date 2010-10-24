@@ -2,7 +2,7 @@
 DOC="Module for working with cljr build system"
 
 help() {
-    echo -e "install uninstall versions describe deps search list latest"
+    echo -e "install uninstall versions describe deps search installed latest"
 }
 
 install() {
@@ -30,7 +30,7 @@ run() {
     $JARK_CLIENT cljr.App $*
 }
 
-list() {
+installed() {
     $JARK_CLIENT cljr.App list
 }
 
