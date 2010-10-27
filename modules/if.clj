@@ -31,8 +31,3 @@
                          (json-str ret))))
            (catch IllegalArgumentException e (help n f))
            (catch NullPointerException e (println "No such command")))))))
-
-(defn http
-  "Serve the given ns over HTTP. http://host:8000/ns?arg=value&"
-  [n]
-  "Enabling namespace over HTTP. . http://host:8000/ns?arg=value&")

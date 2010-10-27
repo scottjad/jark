@@ -92,6 +92,8 @@ extract() {
     cp -av lib/*.jar ${CLJR_CP}/
     cp -av *.jar ${CLJR_CP}/
     cp -av bin/ng-${ARCH} ${JARK_CLIENT}
+    cp -av bin/project-cljr.clj ${CLJR_ROOT}/project.clj
+
     chmod +x ${JARK_CLIENT}
     cp -av modules/* ${JARK_MODULES_DIR}/
     cp jark-deps.txt ${CLJR_CP}/
