@@ -117,7 +117,7 @@ if [ -z $1 ]; then
         EXT=`basename $i | cut -d '.' -f 2` 
         if [ "$EXT" == "sh" ]; then
             source $i
-            echo -en "$MODULE\t- $(help)\n"
+            echo -en "$MODULE\t- $(commands)\n"
             
         fi
 

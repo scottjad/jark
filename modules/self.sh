@@ -1,7 +1,7 @@
 
 DOC="Module to manage jark itself"
 
-help() {
+commands() {
     echo -e "install uninstall version about"
 }
 

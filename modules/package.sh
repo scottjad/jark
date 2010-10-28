@@ -1,7 +1,7 @@
 
 DOC="Module for working with cljr build system"
 
-help() {
+commands() {
     echo -e "install uninstall versions describe deps search installed latest"
 }
 

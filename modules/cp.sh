@@ -11,7 +11,7 @@ readlink_e() {
     pwd
 }
 
-help() {
+commands() {
     echo -e "list add run"
 }
 

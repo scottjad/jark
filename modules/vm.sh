@@ -1,7 +1,7 @@
 
 DOC="Module to manage the JVM server"
 
-help() {
+commands() {
     echo -e "start stop threads stat uptime"
 }
 

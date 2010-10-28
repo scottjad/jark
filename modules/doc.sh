@@ -1,6 +1,6 @@
 DOC="clojoredocs module"
 
-help() {
+commands() {
     echo -e "search examples comments"
 }
 

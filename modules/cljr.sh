@@ -1,6 +1,6 @@
 DOC="Manage the cljr repository"
 
-help() {
+commands() {
     echo -e "reload add"
 }
 
