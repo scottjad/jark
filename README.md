@@ -18,9 +18,8 @@ This will generate the self-extracting script `jark`
 
 ### Usage
 
-[To be updated]
 
-## .jarkrc
+
 
 ## LICENSE
 

@@ -8,4 +8,4 @@
 
   :repositories  {"stuartsierra" "http://stuartsierra.com/maven2"}
 
-  :namespaces [jark.core]) 
+  :aot [jark.core]) 

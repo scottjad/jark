@@ -21,7 +21,6 @@ describe() {
     $JARK_CLIENT cljr.App search $*
 }
 
-
 search() {
     $JARK_CLIENT cljr.App search $*
 }
