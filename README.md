@@ -12,9 +12,9 @@ We refer to `JARK` as the system and `jark` as the client.
     
     lein jar && ./build
     
-This will generate the self-extracting script `jark` . Copy it to PATH
+This will generate the self-extracting script `jark` . Copy it to `PATH`.
 
-## INSTALL
+## USAGE
 
     jark vm start
 
@@ -33,7 +33,7 @@ This will generate the self-extracting script `jark` . Copy it to PATH
     vm      - start stop threads stat uptime
    
 ## NOTE
- - Works and tested  on GNU/Linux.
+ - Works only on GNU/Linux, currently.
 
 ## LICENSE
 
