@@ -16,21 +16,21 @@ This will generate the self-extracting script `jark` . Copy it to PATH
 
 ## INSTALL
 
-   jark vm start
+    jark vm start
 
-   jark MODULE COMMAND [ARGS]
+    jark MODULE COMMAND [ARGS]
    
-   Available modules:
-   cljr    - reload add
-   cp      - list add run
-   doc     - search examples comments
-   if      - cli cli-json
-   ns      - find list load repl run
-   package - install uninstall versions describe deps search installed latest
-   repo    - list add remove
-   self    - install uninstall version about
-   swank   - start stop
-   vm      - start stop threads stat uptime
+    Available modules:
+    cljr    - reload add
+    cp      - list add run
+    doc     - search examples comments
+    if      - cli cli-json
+    ns      - find list load repl run
+    package - install uninstall versions describe deps search installed latest
+    repo    - list add remove
+    self    - install uninstall version about
+    swank   - start stop
+    vm      - start stop threads stat uptime
    
 ## NOTE
  - Works and tested  on GNU/Linux.
