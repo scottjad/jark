@@ -8,18 +8,32 @@ JARK is a tool to manage classpaths for clojure programs on a persistent JVM
 
 We refer to `JARK` as the system and `jark` as the client.
 
-## Quick start
-
-## Building jark
+## BUILD
     
     lein jar && ./build
     
-This will generate the self-extracting script `jark`
+This will generate the self-extracting script `jark` . Copy it to PATH
 
-### Usage
+## INSTALL
 
+   jark vm start
 
-
+   jark MODULE COMMAND [ARGS]
+   
+   Available modules:
+   cljr    - reload add
+   cp      - list add run
+   doc     - search examples comments
+   if      - cli cli-json
+   ns      - find list load repl run
+   package - install uninstall versions describe deps search installed latest
+   repo    - list add remove
+   self    - install uninstall version about
+   swank   - start stop
+   vm      - start stop threads stat uptime
+   
+## NOTE
+ - Works and tested  on GNU/Linux.
 
 ## LICENSE
 
