@@ -12,13 +12,18 @@ We refer to `JARK` as the system and `jark` as the client.
     
     lein jar && ./build
     
-This will generate the self-extracting script `jark` . Copy it to
-`PATH`.
+This will generate the self-extracting script `jark` .
 
 or use a pre-build script:
 
      wget https://github.com/downloads/icylisper/jark/jark.sh 
      cp jark.sh jark
+
+Copy jark script to `PATH`.
+
+# INSTALL
+
+    jark self install
 
 ## USAGE
 
