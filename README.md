@@ -34,10 +34,3 @@ This will generate the self-extracting script `jark` . Copy it to `PATH`.
    
 ## NOTE
  - Works only on GNU/Linux, currently.
-
-## LICENSE
-
-Copyright (C) 2010 Isaac Praveen.
-
-Licensed under the Apache License, Version 2.0 (the "License")
-http://www.apache.org/licenses/LICENSE-2.0
