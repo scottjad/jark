@@ -1,0 +1,54 @@
+#! /usr/bin/env ruby
+
+#This is the executable template, please see the rakefile to see how this will create your gem.
+#This file is copied to bin/* where * is the approapriate name for your gem
+
+require 'main'
+require 'yaml'
+
+Main do
+  option('open_html', 'o') do
+    cast :boolean
+    default false
+    description "This will render the resume in HTML and open it on the users machine."
+  end
+
+  option('contact_info', 'c') do
+    cast :boolean
+    default false
+    description "This will display contact information."
+  end
+
+  option('resume_site', 's') do
+    cast :boolean
+    default false
+    description "This will open a remote site with more information about the person."
+  end
+
+  option('mission_statement', 'm') do
+    cast :boolean
+    default false
+    description "This will display the mission statement."
+  end
+
+  def resume_run()
+    require File.join(File.dirname(__FILE__), '..', 'lib', 'resume_gem')
+    resume = Resume.new()
+    if params['open_html'].value
+      resume.open_html
+    elsif params['contact_info'].value
+      puts "contact info: \n#{resume.contact_information}"
+    elsif params['resume_site'].value
+      resume.open_resume_site
+    elsif params['mission_statement'].value
+      puts "mission statement: \n#{resume.mission_statement}"
+    else
+      help!
+    end 
+  end
+
+  def run
+    resume_run
+  end
+
+end

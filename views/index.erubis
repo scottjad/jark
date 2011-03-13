@@ -1,0 +1,24 @@
+<html>
+<head>
+   <title><%= title %></title>
+   <link href="master.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+ <div id="site">
+  <div id="header">
+    <h1>Jark</h1>
+    <div id="menu">
+
+     <!-- <a href="/projects.html" id="github_link">code</a> -->
+     <!-- <a href="/notes.html" id="blog_link">Notes</a> -->
+     <img src="clojure-icon.gif">
+    </div>
+   </div>
+  <div id="content">
+    <%= resume %>
+  </div>
+
+ </div>
+</body>
+</html>

@@ -1,0 +1,168 @@
+body {
+  background-color: #AAAAAA;
+}
+
+#site {
+	width: 1000px;
+	margin: 0px auto;
+	background: #FFFFFF;
+        -moz-border-radius: 1.5em;
+        -webkit-border-radius: 1.5em;
+        border-radius: 1.5em;
+}
+
+#header {
+  height: 75px;
+  background: #3E5892;
+  border-top-left-radius: 1.5em;
+  border-top-right-radius: 1.5em;
+}
+
+#header h1 {
+  float: left;
+  width: 500px;
+  font-size: 36px;
+  margin-left: 20px;
+  color: #CEDBDE;
+}
+
+#header #menu {
+  float: right;
+  margin: 10px;
+}
+#header #menu a {
+  display: block;
+  float: left;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 35px;
+  vertical-align: bottom;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  font: 12px helvetica, arial, clean, sans-serif;
+}
+
+#about_me {
+/*  background-image: url(https://secure.gravatar.com/avatar/f4252ea05ddfbeb7b1803e9941ea46aa?s=40);*/
+}
+
+#footer {
+    margin: 20px;
+    padding-bottom: 10px;
+}
+
+#content {
+  margin: 20px;
+}
+
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.clearfix {
+  clear:both;
+}
+.articles_header {
+  clear: both;
+  content: ' ';
+  display: block;
+  font-size: 0px;
+  height: 0px;
+  visibility: hidden;
+}
+
+.posts,
+.projects {
+/*  padding-left: 20px;*/
+}
+.posts    .post    .title,
+.projects .project .title {
+	margin-top: 10px;
+	font-size: 18px;
+}
+.posts    .post    .date,
+.projects .project .date {
+	margin-left: 15px;
+	font-size: 16px;
+}
+.posts    .post    .extract,
+.projects .project .extract {
+	margin-top: 10px;
+	margin-left: 15px;
+	font-size: 16px;
+}
+
+
+.post h1 {
+    margin-bottom: 0px;
+}
+.post h2 {
+  color: #580000;
+  font-variant: small-caps;
+}
+.post h3 {
+  font-variant: small-caps;
+}
+
+.post code {
+    border: 1px solid #ddd;
+    background-color: #eef;
+    font-size: 95%;
+}
+.post pre {
+    border: 1px solid #ddd;
+    background-color: #eef;
+    padding: 0 .4em;
+}
+
+
+.post pre code {
+    border: none;
+}
+
+
+.post pre.terminal {
+    border: 1px solid #ddd;
+    background-color: #eef;
+    color: black;
+    font-size: 98%;
+}
+
+.post pre.terminal code {
+    background-color: #eef;
+}
+
+
+.date {
+	font-style: italic;
+}
+.post pre.old_code {
+  background-color: #F5F6E7;
+}
+
+.date {
+	
+}
+.post {
+	
+}
+
+.repo {
+	margin: 10px;
+}
+
+.repo h3 {
+	margin-bottom: 1px;
+}
+
+
+
+li p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+

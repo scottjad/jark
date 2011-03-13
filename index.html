@@ -1,0 +1,82 @@
+<html>
+<head>
+   <title>Isaac Praveen's Resume</title>
+   <link href="master.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+ <div id="site">
+  <div id="header">
+    <h1>Jark</h1>
+    <div id="menu">
+
+     <!-- <a href="/projects.html" id="github_link">code</a> -->
+     <!-- <a href="/notes.html" id="blog_link">Notes</a> -->
+     <a href="/about.html" id="about_me">icylisper</a>
+     <img src="clojure-icon.gif">
+    </div>
+   </div>
+  <div id="content">
+    <p>JARK is a tool to manage classpaths for clojure programs on a persistent JVM</p>
+
+<h2>JARK provides &hellip;</h2>
+
+<ol>
+<li>A persistent JVM daemon that supports multiple clients</li>
+<li>A thin client to run clojure programs from the command line</li>
+</ol>
+
+
+<p>We refer to <code>JARK</code> as the system and <code>jark</code> as the client.</p>
+
+<h2>BUILD</h2>
+
+<pre><code>lein jar &amp;&amp; ./build
+</code></pre>
+
+<p>This will generate the self-extracting script <code>jark</code> .</p>
+
+<p>or use a pre-build script:</p>
+
+<pre><code> wget https://github.com/downloads/icylisper/jark/jark.sh 
+ cp jark.sh jark
+</code></pre>
+
+<p>Copy jark script to <code>PATH</code>.</p>
+
+<h1>INSTALL</h1>
+
+<pre><code>jark self install
+</code></pre>
+
+<h2>USAGE</h2>
+
+<pre><code>jark vm start
+
+jark MODULE COMMAND [ARGS]
+
+Available modules: 
+cljr    - reload add
+cp      - list add run
+doc     - search examples comments
+if      - cli cli-json
+ns      - find list load repl run
+package - install uninstall versions describe deps search installed latest
+repo    - list add remove
+self    - install uninstall version about
+swank   - start stop
+vm      - start stop threads stat uptime
+</code></pre>
+
+<h2>NOTE</h2>
+
+<ul>
+<li>Works only on GNU/Linux, currently.</li>
+</ul>
+
+
+  </div>
+
+ </div>
+</body>
+</html>
