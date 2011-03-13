@@ -34,7 +34,7 @@ Running it is really simple:
     $ jark if cli factorial get 10
 
 or simply 
-    $ jark factorial get 10</code></pre>
+    $ jark factorial get 10
 
 Let us now define a fact-map function.
 
