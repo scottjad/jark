@@ -51,7 +51,39 @@ lein jar &amp;&amp; ./build
 (defn get [n] 
   (let [n (Integer. n)]    
   (apply * (take n (iterate inc 1)))))
+
+$ jark ns load ./factorial.clj
 </code></pre>
+
+<p>Running it is really simple:</p>
+
+<pre><code>$ jark if cli factorial get 10
+</code></pre>
+
+<p>or simply</p>
+
+<pre><code>$ jark factorial get 10&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
+
+<p>Let us now define a fact-map function.</p>
+
+<pre><code>$jark ns repl factorial
+</code></pre>
+
+<p>to get to the repl for the &lsquo;factorial&rsquo; namespace.</p>
+
+<pre><code>(defn fact-map [n] 
+   (let [n (Integer. n)]
+         (zipmap (take n (iterate inc 1))
+                 (map factorial/get (take n (iterate inc 1))))))
+</code></pre>
+
+<p>The interface(if) module provides cli and cli-json commands. The cli-json spits out JSON.</p>
+
+<pre class="terminal"><code>$ jark if cli-json factorial fact-map 3
+ => {"3" : 6, "2" : 2, "1" : 1}
+</code></pre>
+
 
 <h2>Package management</h2>
 
