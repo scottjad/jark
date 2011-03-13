@@ -28,6 +28,31 @@ Copy jark script to `PATH`.
       (let [n (Integer. n)]    
       (apply * (take n (iterate inc 1)))))
 
+    $ jark ns load ./factorial.clj
+
+Running it is really simple:
+    $ jark if cli factorial get 10
+
+or simply 
+    $ jark factorial get 10</code></pre>
+
+Let us now define a fact-map function.
+
+    $jark ns repl factorial
+
+to get to the repl for the 'factorial' namespace. 
+
+    (defn fact-map [n] 
+       (let [n (Integer. n)]
+             (zipmap (take n (iterate inc 1))
+                     (map factorial/get (take n (iterate inc 1))))))
+
+The interface(if) module provides cli and cli-json commands. The cli-json spits out JSON.
+<pre class="terminal"><code>$ jark if cli-json factorial fact-map 3
+ => {"3" : 6, "2" : 2, "1" : 1}
+</code></pre>
+
+
 ## Package management
 
 Now, jark integrates well with exisiting clojure package management tools like cljr and lein.
