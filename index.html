@@ -15,47 +15,87 @@
      <img src="clojure-icon.gif">
     </div>
    </div>
+
+  <div class="clearfix"/>
+
   <div id="content">
-    <p>JARK is a tool to manage classpaths for clojure programs on a persistent JVM</p>
+    <div class="post">
+      <h2>Why Jark ?</h2>
 
-<h2>JARK provides &hellip;</h2>
+<p>Startup time of the Java Virtual Machine(JVM) is too slow and thereby command-line applications on the JVM are sluggish and very painful to use. And there is no existing simple way for multiple clients to access the same instance of the JVM.
+Jark is an attempt to run the JVM as a daemon and support connections from various clients like emacs, vim and even the command line.</p>
 
-<ol>
-<li>A persistent JVM daemon that supports multiple clients</li>
-<li>A thin client to run clojure programs from the command line</li>
-</ol>
+<h2>Install</h2>
 
+<p>use a pre-built self-extracting script:</p>
 
-<p>We refer to <code>JARK</code> as the system and <code>jark</code> as the client.</p>
-
-<h2>BUILD</h2>
-
-<pre><code>lein jar &amp;&amp; ./build
+<pre><code>wget https://github.com/downloads/icylisper/jark/jark.sh 
+cp jark.sh jark
+./jark self install
 </code></pre>
 
-<p>This will generate the self-extracting script <code>jark</code> .</p>
+<p>or build it:</p>
 
-<p>or use a pre-build script:</p>
-
-<pre><code> wget https://github.com/downloads/icylisper/jark/jark.sh 
- cp jark.sh jark
+<pre><code>git clone git://github.com/icylisper/jark.git
+lein jar &amp;&amp; ./build
+./jark self install
 </code></pre>
 
 <p>Copy jark script to <code>PATH</code>.</p>
 
-<h1>INSTALL</h1>
+<h2>Namespace utilities</h2>
 
-<pre><code>jark self install
+<pre><code>(ns factorial
+  (:refer-clojure :exclude [get]))
+
+(defn get [n] 
+  (let [n (Integer. n)]    
+  (apply * (take n (iterate inc 1)))))
 </code></pre>
 
-<h2>USAGE</h2>
+<h2>Package management</h2>
 
-<pre><code>jark vm start
+<p>Now, jark integrates well with exisiting clojure package management tools like cljr and lein.</p>
 
-jark MODULE COMMAND [ARGS]
+<pre><code>$ jark package search base64
 
-Available modules: 
-cljr    - reload add
+Libraries on Clojars.org that contain the term:  base64
+----------------------------------------------
+clj-base64    0.0.0-SNAPSHOT
+org.clojars.s450r1/dcm4che-base64    2.0.23
+
+$ jark package install clj-base64
+$ jark cp add ~/.cljr/lib/clj-base64-*.jar
+$ jark cp list
+$ jark remvee.base64 encode-str "clojure rocks"
+  =&gt; Y2xvanVyZSByb2Nrcw==
+</code></pre>
+
+<p>There is also the <i>repo</i> module to search, list, add or remove maven repositories.</p>
+
+<h2>Doc search</h2>
+
+<p>It looks up clojuredoc.org and other resources for usage and examples of the clojure API.</p>
+
+<pre><code> $ jark doc search map
+ $ jark doc examples map
+</code></pre>
+
+<h2>Emacs interop</h2>
+
+<p>To start the swank server do <code>jark swank start</code>. The same can be added to ~/.jarkrc
+We can connect from emacs:</p>
+
+<pre><code>  M-x slime-connect 127.0.0.1 4005
+</code></pre>
+
+<h2>Scripting with Jark</h2>
+
+<h2></h2>
+
+<h2>Available Modules</h2>
+
+<pre><code>cljr    - reload add
 cp      - list add run
 doc     - search examples comments
 if      - cli cli-json
@@ -67,13 +107,15 @@ swank   - start stop
 vm      - start stop threads stat uptime
 </code></pre>
 
-<h2>NOTE</h2>
+<h2>TODO</h2>
 
 <ul>
-<li>Works only on GNU/Linux, currently.</li>
+<li>Works only on GNU/Linux, someday I will port it to windows.</li>
+<li></li>
 </ul>
 
 
+     </div>
   </div>
 
  </div>

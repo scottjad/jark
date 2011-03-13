@@ -15,8 +15,13 @@
      <img src="clojure-icon.gif">
     </div>
    </div>
+
+  <div class="clearfix"/>
+
   <div id="content">
-    <%= resume %>
+    <div class="post">
+      <%= resume %>
+     </div>
   </div>
 
  </div>
