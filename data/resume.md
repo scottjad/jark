@@ -84,9 +84,6 @@ We can connect from emacs:
 
       M-x slime-connect 127.0.0.1 4005
 
-## Scripting with Jark
-
-## 
 
 ## Available Modules
 
@@ -104,5 +101,13 @@ We can connect from emacs:
    
 ## TODO
 
-* Works only on GNU/Linux, someday I will port it to windows.
-* 
+* Currently works only on GNU/Linux, someday port it to windows.
+* Support Vim 
+* Configure client and server port : `jark vm configure [--client-port| --server-port]`
+* Integrate nrepl. Use that as the communication protocol
+* Configure remote server `jark vm configure --server HOST`
+* Scripting with jark  `#!/usr/bin/env jark` should startup jark and run the clojure script.
+
+
+        
+        

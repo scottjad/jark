@@ -10,8 +10,7 @@
     <h1>Jark</h1>
     <div id="menu">
 
-     <!-- <a href="/projects.html" id="github_link">code</a> -->
-     <!-- <a href="/notes.html" id="blog_link">Notes</a> -->
+     <a href="/" id="blog_link">blog</a>
      <img src="clojure-icon.gif">
     </div>
    </div>
@@ -121,10 +120,6 @@ We can connect from emacs:</p>
 <pre><code>  M-x slime-connect 127.0.0.1 4005
 </code></pre>
 
-<h2>Scripting with Jark</h2>
-
-<h2></h2>
-
 <h2>Available Modules</h2>
 
 <pre><code>cljr    - reload add
@@ -142,8 +137,12 @@ vm      - start stop threads stat uptime
 <h2>TODO</h2>
 
 <ul>
-<li>Works only on GNU/Linux, someday I will port it to windows.</li>
-<li></li>
+<li>Currently works only on GNU/Linux, someday port it to windows.</li>
+<li>Support Vim</li>
+<li>Configure client and server port : <code>jark vm configure [--client-port| --server-port]</code></li>
+<li>Integrate nrepl. Use that as the communication protocol</li>
+<li>Configure remote server <code>jark vm configure --server HOST</code></li>
+<li>Scripting with jark  <code>#!/usr/bin/env jark</code> should startup jark and run the clojure script.</li>
 </ul>
 
 
