@@ -1,8 +1,7 @@
 
 ## Why Jark ?
 
-Startup time of the Java Virtual Machine(JVM) is too slow and thereby command-line applications on the JVM are sluggish and very painful to use. And there is no existing simple way for multiple clients to access the same instance of the JVM. 
-Jark is an attempt to run the JVM as a daemon and support connections from various clients like emacs, vim and even the command line. 
+Startup time of the Java Virtual Machine(JVM) is too slow and thereby command-line applications on the JVM are sluggish and very painful to use. And there is no existing simple way for multiple clients to access the same instance of the JVM. Jark is an attempt to run the JVM as a daemon and support connections from various clients like emacs, vim and even the command line. It also provides easy command-line interface to manage classpath and namespaces when developing or deploying clojure applications.
  
 ## Install
  
