@@ -26,17 +26,8 @@ Jark is an attempt to run the JVM as a daemon and support connections from vario
 
 <h2>Install</h2>
 
-<p>use a pre-built self-extracting script:</p>
-
-<pre><code>wget https://github.com/downloads/icylisper/jark/jark.sh 
-cp jark.sh jark
-./jark self install
-</code></pre>
-
-<p>or build it:</p>
-
 <pre><code>git clone git://github.com/icylisper/jark.git
-lein jar &amp;&amp; ./build
+./build
 ./jark self install
 </code></pre>
 
@@ -134,15 +125,35 @@ swank   - start stop
 vm      - start stop threads stat uptime
 </code></pre>
 
+<h2>Multiple instances of the JVM using jark</h2>
+
+<pre><code>jark vm start [PORT]    (defaults to 2113)
+jark vm connect [HOST] PORT
+</code></pre>
+
 <h2>TODO</h2>
 
 <ul>
 <li>Currently works only on GNU/Linux, someday port it to windows.</li>
 <li>Support Vim</li>
-<li>Configure client and server port : <code>jark vm configure [--client-port| --server-port]</code></li>
 <li>Integrate nrepl. Use that as the communication protocol</li>
-<li>Configure remote server <code>jark vm configure --server HOST</code></li>
 <li>Scripting with jark  <code>#!/usr/bin/env jark</code> should startup jark and run the clojure script.</li>
+<li><p>Have a ~/.jarkrc file that has sections corresponding to named-connections</p>
+
+<pre><code>[a]
+host   = 192.168.1.2
+port   = 2113
+init   = swank start, vim start
+
+[b]
+host  = 192.168.1.3
+port  = 2114
+init  = h2.db load
+
+jark vm connect --name a 
+&lt;do something&gt;, and then
+jark vm connect --name b
+</code></pre></li>
 </ul>
 
 

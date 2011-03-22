@@ -6,14 +6,8 @@ Jark is an attempt to run the JVM as a daemon and support connections from vario
  
 ## Install
  
-use a pre-built self-extracting script:
-    wget https://github.com/downloads/icylisper/jark/jark.sh 
-    cp jark.sh jark
-    ./jark self install
-
-or build it:
     git clone git://github.com/icylisper/jark.git
-    lein jar && ./build
+    ./build
     ./jark self install
     
 Copy jark script to `PATH`.
@@ -84,7 +78,6 @@ We can connect from emacs:
 
       M-x slime-connect 127.0.0.1 4005
 
-
 ## Available Modules
 
     cljr    - reload add
@@ -98,16 +91,30 @@ We can connect from emacs:
     swank   - start stop
     vm      - start stop threads stat uptime
 
+## Multiple instances of the JVM using jark
+
+    jark vm start [PORT]    (defaults to 2113)
+    jark vm connect [HOST] PORT
    
 ## TODO
 
 * Currently works only on GNU/Linux, someday port it to windows.
 * Support Vim 
-* Configure client and server port : `jark vm configure [--client-port| --server-port]`
 * Integrate nrepl. Use that as the communication protocol
-* Configure remote server `jark vm configure --server HOST`
 * Scripting with jark  `#!/usr/bin/env jark` should startup jark and run the clojure script.
+* Have a ~/.jarkrc file that has sections corresponding to named-connections
 
+      [a]
+      host   = 192.168.1.2
+      port   = 2113
+      init   = swank start, vim start
 
-        
-        
+      [b]
+      host  = 192.168.1.3
+      port  = 2114
+      init  = h2.db load
+
+      jark vm connect --name a 
+      <do something>, and then
+      jark vm connect --name b
+
