@@ -1,7 +1,10 @@
 <html>
 <head>
    <title><%= title %></title>
-   <link href="master.css" media="screen" rel="stylesheet" type="text/css" />
+   <link href="master.css" media="screen" rel="stylesheet"  type="text/css" />
+   <script type="text/javascript" src="http://use.typekit.com/hqz1dpo.js"></script>
+   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
 </head>
 <body>
 
@@ -10,7 +13,6 @@
     <h1>Jark</h1>
     <div id="menu">
 
-     <a href="/" id="blog_link">blog</a>
      <img src="clojure-icon.gif">
     </div>
    </div>
