@@ -121,6 +121,7 @@ extract() {
     cp -av lib/*.jar ${CLJR_CP}/
     cp -av *.jar ${CLJR_CP}/
     cp -av bin/ng-${ARCH} ${JARK_BIN}
+    cp -av bin/shflags ${CLJR_BIN}
     cp -av bin/project-cljr.clj ${CLJR_ROOT}/project.clj
 
     chmod +x ${JARK_BIN}

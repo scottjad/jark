@@ -1,6 +1,8 @@
 
 DOC="Module to manage the JVM server"
 
+. ${CLJR_BIN}/shflags
+
 commands() {
     echo -e "start stop connect threads stat uptime"
 }
@@ -14,11 +16,11 @@ ng_server_start() {
 }
 
 start() {
-    if [ -z $1 ]; then
-        port=2113
-    else
-        port=$1
-    fi
+    DEFINE_string 'port' '2113' 'remote jark port' 'p'
+    FLAGS "$@" || exit 1
+    eval set -- "${FLAGS_ARGV}"
+    port=${FLAGS_port}
+
     rm -f /tmp/jark.client
 
     java -cp ${JARK_CP}:${JARK_JAR} -server com.martiansoftware.nailgun.NGServer $port <&- & 2&> /dev/null 
@@ -71,13 +73,10 @@ uptime() {
 }
 
 connect() {
-    if [ -z $1 ]; then
-        echo "USAGE: jark vm connect HOST PORT"
-        exit 0
-    fi
-    if [ -z $2 ]; then
-        echo "${CLJR_BIN}/ng --nailgun-port $1" > /tmp/jark.client
-    else
-        echo "${CLJR_BIN}/ng --nailgun-server $1 --nailgun-port $2" > /tmp/jark.client
-    fi
+    DEFINE_string 'port' '2113' 'remote jark port' 'p'
+    DEFINE_string 'host' 'localhost' 'remote host' 'r'
+
+    FLAGS "$@" || exit 1
+    eval set -- "${FLAGS_ARGV}"
+    echo "${CLJR_BIN}/ng --nailgun-server ${FLAGS_host} --nailgun-port ${FLAGS_port}" > /tmp/jark.client
 }
