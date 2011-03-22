@@ -8,7 +8,6 @@ CLJR_CP="$HOME/.cljr/lib"
 CLJR_BIN="$HOME/.cljr/bin"
 
 ARCH=`uname -m`
-JARK_CLIENT="${CLJR_BIN}/ng"
 
 readlink_e() {
     self="$0"
@@ -33,11 +32,13 @@ DEP_JARS="${CLJR_CP}/nailgun-0.7.1.jar:${CLJR_CP}/swank-clojure-1.2.0.jar:${CLJR
 
 JARK_CP="${CLOJURE_JARS}:${DEP_JARS}:${JARK_JAR}:"
 JARK_MODULES_DIR="${CLJR_CP}/jark"
+JARK_BIN="${CLJR_BIN}/ng"
 
+# some cleanups
 
 get_pid() {
-    if [ -e /tmp/ng.pid ]; then
-        p=$(cat /tmp/ng.pid)
+    if [ -e /tmp/jark.pid ]; then
+        p=$(cat /tmp/jark.pid)
         if [ $p ]; then
             echo $p
         else
@@ -47,6 +48,33 @@ get_pid() {
         echo 0
     fi
 }
+
+get_port() {
+    if [ -e /tmp/jark.port ]; then
+        p=$(cat /tmp/jark.port)
+        if [ $p ]; then
+            echo $p
+        else
+            echo 0
+        fi
+    else
+        echo 0
+    fi
+}
+
+get_client() {
+    if [ -e /tmp/jark.client ]; then
+        p=$(cat /tmp/jark.client)
+        if [ "$p" ]; then
+            echo "$p"
+        else
+            echo 0
+        fi
+    else
+        echo 0
+    fi
+}
+
 
 is_jark_running() {
     PID=`get_pid`
@@ -62,7 +90,9 @@ is_jark_running() {
     fi
 }
 
+
 running=`is_jark_running`
+JARK_CLIENT=$(get_client)
 
 #exports
 export JARK
@@ -81,7 +111,6 @@ mkdir -p ${CLJR_CP}
 mkdir -p ${CLJR_BIN}
 mkdir -p ${JARK_MODULES_DIR}
 
-
 extract() {
     export TMPDIR=`mktemp -d /tmp/jark.XXXXXX`
     ARCHIVE=`awk '/^__ARCHIVE_BELOW__/ {print NR + 1; exit 0; }' $0`
@@ -91,10 +120,10 @@ extract() {
 
     cp -av lib/*.jar ${CLJR_CP}/
     cp -av *.jar ${CLJR_CP}/
-    cp -av bin/ng-${ARCH} ${JARK_CLIENT}
+    cp -av bin/ng-${ARCH} ${JARK_BIN}
     cp -av bin/project-cljr.clj ${CLJR_ROOT}/project.clj
 
-    chmod +x ${JARK_CLIENT}
+    chmod +x ${JARK_BIN}
     cp -av modules/* ${JARK_MODULES_DIR}/
     cp jark-deps.txt ${CLJR_CP}/
     

@@ -2,17 +2,31 @@
 DOC="Module to manage the JVM server"
 
 commands() {
-    echo -e "start stop threads stat uptime"
+    echo -e "start stop connect threads stat uptime"
 }
 
 ng_server_start() {
-    java -cp ${JARK_CP}:${JARK_JAR} -server com.martiansoftware.nailgun.NGServer <&- & 
+    local port="$0"
+    echo $port
+    java -cp ${JARK_CP}:${JARK_JAR} -server com.martiansoftware.nailgun.NGServer $port <&- & 
     pid=$!
     echo ${pid} > /tmp/ng.pid
 }
 
 start() {
-    ng_server_start 2&> /dev/null
+    if [ -z $1 ]; then
+        port=2113
+    else
+        port=$1
+    fi
+    rm -f /tmp/jark.client
+
+    java -cp ${JARK_CP}:${JARK_JAR} -server com.martiansoftware.nailgun.NGServer $port <&- & 2&> /dev/null 
+    pid=$!
+    echo ${pid} > /tmp/jark.pid
+    echo ${port} > /tmp/jark.port
+    echo "${CLJR_BIN}/ng --nailgun-port $port" > /tmp/jark.client
+
     sleep 2
     echo "Loading modules ..."
     $JARK &> /dev/null
@@ -30,7 +44,7 @@ start() {
     if [ -e $HOME/.jarkrc ]; then
         source $HOME/.jarkrc
     fi
-    echo "Started JVM server on port 2113"
+    echo "Started JVM server on port $port"
     exit 0
 }
 
@@ -54,4 +68,15 @@ stat() {
 
 uptime() {
     $JARK _stat uptime
+}
+
+connect() {
+    if [ -z $1 ]; then
+        echo "USAGE: jark vm connect HOST PORT"
+    fi
+    if [ -z $2 ]; then
+        echo "${CLJR_BIN}/ng --nailgun-port $1" > /tmp/jark.client
+    else
+        echo "${CLJR_BIN}/ng --nailgun-server $2 --nailgun-port $1" > /tmp/jark.client
+    fi
 }
