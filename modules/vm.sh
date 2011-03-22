@@ -73,10 +73,11 @@ uptime() {
 connect() {
     if [ -z $1 ]; then
         echo "USAGE: jark vm connect HOST PORT"
+        exit 0
     fi
     if [ -z $2 ]; then
         echo "${CLJR_BIN}/ng --nailgun-port $1" > /tmp/jark.client
     else
-        echo "${CLJR_BIN}/ng --nailgun-server $2 --nailgun-port $1" > /tmp/jark.client
+        echo "${CLJR_BIN}/ng --nailgun-server $1 --nailgun-port $2" > /tmp/jark.client
     fi
 }
