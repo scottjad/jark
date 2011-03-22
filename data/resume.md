@@ -12,6 +12,13 @@ Jark is an attempt to run the JVM as a daemon and support connections from vario
     
 Copy jark script to `PATH`.
 
+## Getting started
+
+     jark vm start [--port]
+
+     jark vm connect [--host --port]
+
+In the above, host defaults to localhost and port to 2113. Any number of JVM instances can be started.
 
 ## Namespace utilities
 
@@ -91,11 +98,6 @@ We can connect from emacs:
     swank   - start stop
     vm      - start stop threads stat uptime
 
-## Multiple instances of the JVM using jark
-
-    jark vm start [PORT]    (defaults to 2113)
-    jark vm connect [HOST] PORT
-   
 ## TODO
 
 * Currently works only on GNU/Linux, someday port it to windows.
