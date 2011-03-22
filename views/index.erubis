@@ -11,6 +11,7 @@
  <div id="site">
   <div id="header">
     <h1>Jark</h1>
+    <i>Tool to manage classpaths and clojure namespaces on the JVM</i>
     <div id="menu">
 
      <img src="clojure-icon.gif">
