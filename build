@@ -13,7 +13,7 @@ for i in `ls lib/*.jar`; do
     echo $i >> jark-deps.txt
 done
 
-tar cvf payload.tar bin/shflags bin/ng-i686 bin/ng-x86_64 bin/project-cljr.clj *.jar jark-deps.txt modules/
+tar cvf payload.tar bin/clj_completions bin/shflags bin/ng-i686 bin/ng-x86_64 bin/project-cljr.clj *.jar jark-deps.txt modules/
 
 for i in `ls lib/*.jar`; do
     tar -vrf payload.tar $i
