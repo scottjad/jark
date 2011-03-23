@@ -50,5 +50,22 @@
 (defn repl
   "Launch a repl with given ns"
   [namespace]
-  (let [fx (fn [] (in-ns (symbol namespace)))]
-    (clojure.main/repl :init fx)))
+  (clojure.main/repl
+    :init  (fn [] (in-ns (symbol namespace)))
+   
+    :prompt #(printf
+               "\033[1;38;5;51m%s \033[1;38;5;45m>>>\033[0m "
+               (ns-name *ns*))
+    :print (try
+             (fn [x]
+               (print "\033[38;5;77m")
+               ((resolve 'clojure.contrib.pprint/pprint) x)
+               (print "\033[m")
+               (flush))
+             (catch Exception e
+               (prn e)))
+    :caught (fn [x]
+              (print "\033[38;5;220m")
+              (prn x)
+              (print "\033[m")
+              (flush))))
