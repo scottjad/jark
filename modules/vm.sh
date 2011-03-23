@@ -4,7 +4,7 @@ DOC="Module to manage the JVM server"
 . ${CLJR_BIN}/shflags
 
 commands() {
-    echo -e "start stop connect threads stat uptime"
+    echo -e "start stop connect threads uptime"
 }
 
 ng_server_start() {
