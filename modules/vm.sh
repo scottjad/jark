@@ -55,7 +55,7 @@ stop() {
         echo "JVM server has already been stopped"
         exit 0
     fi
-    echo "Stopping JVM server with pid `cat /tmp/ng.pid`"
+    echo "Stopping JVM server with pid `cat /tmp/jark.pid`"
     $JARK_CLIENT ng-stop
     exit 0
 }
