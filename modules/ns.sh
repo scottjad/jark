@@ -20,7 +20,7 @@ run() {
 }
 
 repl() {
-    rlwrap --remember -c -f ${CLJR_BIN}/clj_completions $JARK _ns repl $* 
+    rlwrap --break-chars "\"\\'(){}[],^%$#@;:|" --remember -c -f ${CLJR_BIN}/clj_completions $JARK _ns repl $* 
 }
 
 load() {
