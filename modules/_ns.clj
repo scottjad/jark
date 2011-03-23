@@ -54,7 +54,7 @@
     :init  (fn [] (in-ns (symbol namespace)))
    
     :prompt #(printf
-               "\033[1;38;5;51m%s \033[1;38;5;45m>>>\033[0m "
+               "\033[1;38;5;51m%s \033[1;38;5;45m>>\033[0m "
                (ns-name *ns*))
     :print (try
              (fn [x]
