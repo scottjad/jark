@@ -77,19 +77,13 @@ get_client() {
 
 
 is_jark_running() {
-    PID=`get_pid`
-    if [ $PID == 0 ]; then
-        echo "no"
+    $(get_client) jark.core jark._stat uptime &> /dev/null
+    if [ $? == "0" ]; then
+        echo "yes"
     else
-        search=$(ps --pid $PID -o comm | grep -v COMMAND)
-        if [ "$search" ]; then
-            echo "yes"
-        else
-            echo "no"
-        fi
+        echo "no"
     fi
 }
-
 
 running=`is_jark_running`
 JARK_CLIENT=$(get_client)
