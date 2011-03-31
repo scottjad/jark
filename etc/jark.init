@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -eu
+
+case "$1" in
+	start)
+                jark vm start 2&> /dev/null
+                echo "Started JVM daemon"
+		;;
+	stop)
+                jark vm stop
+                echo "Stopped JVM daemon"
+		;;
+	restart|reload|condrestart)
+                jark vm stop
+                jark vm start 2&> /dev/null
+
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac
+
+exit 0
