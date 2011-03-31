@@ -21,6 +21,7 @@ run() {
 
 repl() {
     which rlwrap &> /dev/null
+    echo $* > /tmp/jark.ns
     if [ $? == "0" ]; then
         rlwrap --break-chars "\"\\'(){}[],^%$#@;:|" --remember -c -f ${CLJR_BIN}/clj_completions $JARK _ns repl $* 
     else

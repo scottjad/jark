@@ -76,6 +76,20 @@ get_client() {
 }
 
 
+get_ns() {
+    if [ -e /tmp/jark.ns ]; then
+        p=$(cat /tmp/jark.ns)
+        if [ "$p" ]; then
+            echo "$p"
+        else
+            echo "user"
+        fi
+    else
+        echo "user"
+    fi
+}
+
+
 is_jark_running() {
     $(get_client) jark.core jark._stat uptime &> /dev/null
     if [ $? == "0" ]; then
@@ -99,6 +113,28 @@ if [ -e "$1" ]; then
         exit 0
     fi
 fi
+
+if [ "$1"  == "repl" ]; then
+    # TODO: remember last used repl
+    if [ -z $2 ]; then
+        LAST_REPL=$(get_ns)
+    else
+        LAST_REPL=$2
+    fi
+    jark ns repl ${LAST_REPL}
+    exit 0
+fi
+
+if [ "$1"  == "run" ]; then
+    if [ -z $2 ]; then
+        MAIN="clojure.main"
+    else
+        MAIN=$2
+    fi
+    jark cp run ${MAIN}
+    exit 0
+fi
+
 
 #exports
 export JARK
