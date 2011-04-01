@@ -2,11 +2,11 @@
 DOC="Module to manage jark itself"
 
 commands() {
-    echo -e "install uninstall version about"
+    echo -e "install uninstall version"
 }
 
 version() {
-    echo "jark version: $VERSION"
+    $JARK version
 }
 
 uninstall() {

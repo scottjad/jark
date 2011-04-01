@@ -2,7 +2,7 @@
 pkgname=jark
 pkgver=20101003
 pkgrel=2
-pkgdesc="JARK is a tool to manage classpaths for clojure programs on a persistent JVM"
+pkgdesc="JARK is a tool to manage classpaths and clojure namespaces on a persistent JVM"
 arch=any
 url="http://github.com/icylisper/jark"
 license=('APACHE LICENSE v2')
@@ -25,7 +25,6 @@ build() {
          git clone ${_gitroot}
     fi
     cd ${srcdir}/${_gitname}/
-    lein jar
     ./build
 }
 
