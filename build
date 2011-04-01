@@ -34,6 +34,15 @@ else
     exit 1
 fi
 
+echo "Updating build information"
+COMMIT=`git rev-parse --verify --short HEAD`
+DATE=`date`
+ARCH=`uname -m`
+TMPL_DATE="$ARCH | $DATE"
+echo "git hash: $COMMIT"
+sed -i "s/TMPL_VERSION/$COMMIT/g" jark
+sed -i "s/TMPL_DATE/${TMPL_DATE}/g" jark
+
 chmod +x jark
 echo "jark self extracting script created"
 exit 0

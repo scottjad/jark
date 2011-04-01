@@ -1,6 +1,7 @@
 #!/bin/bash
 
-VERSION="1.0"
+VERSION="TMPL_VERSION"
+BUILD_DATE="TMPL_DATE"
 
 MOD=$1
 CLJR_ROOT="$HOME/.cljr"
@@ -139,6 +140,17 @@ if [ "$1"  == "run" ]; then
     exit 0
 fi
 
+if [ "$1"  == "version" ]; then
+    echo "git hash: $VERSION"
+    echo "build: $BUILD_DATE"
+    exit 0
+fi
+
+if [ "$1"  == "--version" ]; then
+    echo "git hash: $VERSION"
+    echo "build: $BUILD_DATE"
+    exit 0
+fi
 
 #exports
 export JARK
