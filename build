@@ -5,7 +5,7 @@ if [ $? != 0 ]; then
     echo "javac not installed, exiting"
     exit 1
 fi
-lein jar
+lein deps && lein jar
 
 touch jark-deps.txt
 :> jark-deps.txt

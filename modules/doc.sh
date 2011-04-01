@@ -1,4 +1,4 @@
-DOC="clojoredocs module"
+DOC="clojuredocs module"
 
 commands() {
     echo -e "search examples comments"

@@ -13,6 +13,7 @@ readlink_e() {
 
 commands() {
     echo -e "list add run"
+    exit 0
 }
 
 remove() {
@@ -47,6 +48,11 @@ add() {
 }
 
 list() {
+    $JARK_CLIENT ng-cp
+     exit 0
+}
+
+ls() {
     $JARK_CLIENT ng-cp
      exit 0
 }
