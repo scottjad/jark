@@ -107,16 +107,11 @@ if [ -e "$1" ]; then
     if [ "$running" == "no" ]; then
         jark vm start 2&> /dev/null
         jark ns load $1
-        LNS=`jark ns load $1`
-        NS=`echo $LNS | cut -d '/' -f 1 | cut -d "'" -f 2`
-        jark $NS  -main "${@:2}" 
-        exit 0
-    else
-        LNS=`jark ns load $1`
-        NS=`echo $LNS | cut -d '/' -f 1 | cut -d "'" -f 2`
-        jark $NS  -main "${@:2}" 
-        exit 0
     fi
+    LNS=`jark ns load $1`
+    NS=`echo $LNS | cut -d '/' -f 1 | cut -d "'" -f 2`
+    jark $NS  -main "${@:2}" 
+    exit 0
 fi
 
 if [ "$1"  == "repl" ]; then
