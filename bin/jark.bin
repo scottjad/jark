@@ -102,14 +102,18 @@ is_jark_running() {
 running=`is_jark_running`
 JARK_CLIENT=$(get_client)
 
-## for /usr/bin/env jark
 if [ -e "$1" ]; then
     if [ "$running" == "no" ]; then
         jark vm start 2&> /dev/null
         jark ns load $1
+        LNS=`jark ns load $1`
+        NS=`echo $LNS | cut -d '/' -f 1 | cut -d "'" -f 2`
+        jark $NS  -main "${@:2}" 
         exit 0
     else
-        jark ns load $1
+        LNS=`jark ns load $1`
+        NS=`echo $LNS | cut -d '/' -f 1 | cut -d "'" -f 2`
+        jark $NS  -main "${@:2}" 
         exit 0
     fi
 fi
